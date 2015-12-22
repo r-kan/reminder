@@ -1,2 +1,16 @@
 
 rkan_config.ini
+
+*.pyc
+
+.idea/.name
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/reminder.iml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
