@@ -1,6 +1,8 @@
 
 rkan_config.ini
 
+resoure/*
+
 *.pyc
 
 .idea/.name
