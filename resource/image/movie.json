@@ -1,0 +1,14 @@
+{
+	"image":
+	{
+		"The Matrix":       {"attribute": {"中文名": "駭客任務", "主角": "尼歐"}},
+		"The Mist 2007":    {"attribute": {"中文名": "迷霧驚魂", "主角": "大衛"}},
+		"Forrest Gump":     {"attribute": {"中文名": "阿甘正傳", "主角": "阿甘"}},
+		"Pan's Labyrinth":  {"attribute": {"中文名": "羊男的迷宮", "主角": "奧菲莉亞"}},
+		"Devil's Advocate": {"attribute": {"中文名": "魔鬼代言人", "主角": "Kevin Lomax"}},
+		"Life of Pi":       {"attribute": {"中文名": "少年Pi的奇幻漂流", "主角": "Pi"}},
+		"la vita è bella":  {"attribute": {"中文名": "美麗人生"}},
+		"The Hunger Games": {"attribute": {"中文名": "飢餓遊戲", "主角": "凱妮絲"}},
+		"Cube 1997":        {"attribute": {"中文名": "異次元殺陣"}}
+	}
+}

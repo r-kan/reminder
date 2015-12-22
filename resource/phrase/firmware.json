@@ -1,0 +1,19 @@
+{
+  "phrase": {
+    "韌體": {
+      "target": [
+        "sense",
+        "idol"
+      ],
+      "rank": {"kind": "WEIGHT", "value": 1},
+      "sentence": {
+        "對特定影像，大腦做出“性感”的詮釋，然而，這是出自“你”的決定？": {},
+        "愈多無法自拔於演化遺產的制式反應，愈少探究自我的真實樣貌": {},
+        "你意識到那些時常傳遞悖於自我意識的想法與感覺的韌體機轉的存在了嗎？": {},
+        "var(`pattern)？如此的樣貌很吸引人吧！但十年、二十年後呢？": {"rank": { "kind": "WEIGHT", "value": 2}, "restrict": "idol"},
+        "藤田恵名：容姿は一瞬、才能は一生だと思ってます": { "rank": {"kind": "PERCENTAGE", "value": 50}, "restrict": "藤田恵名"},
+        "グラビアアイドル枕営業？": {"rank": { "kind": "WEIGHT", "value": 3}, "restrict": "高崎聖子"}
+      }
+    }
+  }
+}

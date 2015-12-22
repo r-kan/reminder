@@ -1,0 +1,35 @@
+{
+  "phrase": {
+    "戲劇": {
+      "target": [
+        "movie",
+        "animation"
+      ],
+      "rank": {
+        "kind": "WEIGHT",
+        "value": 1
+      },
+      "sentence": {
+        "喜歡var(中文名)嗎？原因是...？": {
+          "default_arg_value": {
+            "中文名": "var('pattern)"
+          },
+          "rank": {
+            "kind": "WEIGHT",
+            "value": 1
+          },
+          "restrict": "The Matrix"
+        },
+        "var(主角)如何面對問題，作出抉擇？": {
+          "default_arg_value": {
+            "主角": "var('pattern)的主角"
+          },
+          "rank": {
+            "kind": "WEIGHT",
+            "value": 1
+          }
+        }
+      }
+    }
+  }
+}

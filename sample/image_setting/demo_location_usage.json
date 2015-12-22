@@ -1,0 +1,10 @@
+{
+    "comment":
+    [
+        "利用location來指定已經存在圖片的資料夾"
+    ],
+	"image":
+	{
+		"existed_pictures": {"location": "sample/library"}
+	}
+}

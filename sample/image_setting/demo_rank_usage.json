@@ -1,0 +1,15 @@
+{
+    "comment":
+    [
+        "rank用來設定圖片如何被呈現：",
+        "1. 可以(kind, value) pair來設定該圖片類型顯示的機率",
+            "其中WEIGHT的value指明被選擇的權重，PERCENTAGE的value指明被選擇的機率",
+        "2. 可以period限制該圖片類型顯示的時間，格式為hhmm-hhmm"
+    ],
+	"image":
+	{
+        "generous": {"rank": {"kind": "WEIGHT", "value": 1}},
+		"dream": {"rank": {"kind": "PERCENTAGE", "value": 20}},
+        "good night": {"rank": {"kind": "PERCENTAGE", "value": 30, "period": "2300-0100"}}
+    }
+}

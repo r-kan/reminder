@@ -1,0 +1,13 @@
+{
+  "phrase": {
+    "榜樣": {
+      "target": [
+        "sports"
+      ],
+      "rank": {"kind": "WEIGHT", "value": 1},
+      "sentence": {
+        "I've failed over and over and over again in my life. And that is why I succeed.": {"restrict": "Michael Jordan"}
+      }
+    }
+  }
+}

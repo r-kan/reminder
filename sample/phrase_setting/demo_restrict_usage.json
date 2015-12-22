@@ -1,0 +1,18 @@
+{
+  "phrase": {
+    "這裡可以任意取名": {
+      "target": [
+        "demo_rank_usage"
+      ],
+      "rank": {"kind": "WEIGHT", "value": 1},
+      "sentence": {
+        "phrase內容會呈現在所有目標json設定檔中的圖片類型": {},
+        "若有指定restrict，則phrase內容只會呈現在指定的圖片類型var(`pattern)中": {"restrict": "dream", "rank": { "kind": "WEIGHT", "value": 2}}
+      }
+    },
+    "已存在圖片庫": {
+      "target": ["demo_location_usage"],
+      "sentence": {"事先存在的圖片也可搭配予phrase": {}}
+    }
+  }
+}

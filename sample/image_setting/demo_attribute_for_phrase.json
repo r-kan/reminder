@@ -1,0 +1,11 @@
+{
+    "comment":
+    [
+        "利用attribute來提供phrase設定可能需要的內容"
+    ],
+	"image":
+	{
+		"Inside Out":     {"attribute": {"中文名": "腦筋急轉彎", "主角": "樂樂"}},
+		"Wreck-It Ralph": {"attribute": {"中文名": "無敵破壞王", "主角": ["Ralph", "Vanellope"]}}
+	}
+}
