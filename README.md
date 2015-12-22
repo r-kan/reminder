@@ -33,3 +33,5 @@ which demonstrate the following:
 # Author
 rkan
 its_right@msn.com
+
+Watch screenshots and more other information at http://r-kan.github.io/reminder/
