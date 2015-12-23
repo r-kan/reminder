@@ -18,6 +18,8 @@ python2.7
 2. Install `imageTk/PIL`  
   **_linux_** apt-get install python-imaging-tk  
   **_osx_** pip install Pillow  
+3. Install `requests` | 安裝`requests`  
+  sudo pip install requests
 
 # Sample usage:  
 cd _reminder_target_directory_  
