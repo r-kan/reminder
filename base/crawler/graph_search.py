@@ -67,7 +67,7 @@ class Crawler(object):
             tried_size += G_SEARCH_PER_REQ_SIZE
         # 'set' to filter out duplicated item (though not expected, but we found g-search may give duplicated result)
         urls = list(set(urls))
-        show('獲得url筆數：', len(urls))
+        info('獲得url筆數：', len(urls))
         if print_url:
             for url in urls:
                 show(url)
