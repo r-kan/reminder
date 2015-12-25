@@ -1,4 +1,4 @@
-# reminder
+# Reminder
 better reminder, more customized slideshow tool
 ==========================
 
