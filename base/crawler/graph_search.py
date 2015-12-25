@@ -40,6 +40,8 @@ class Crawler(object):
             dice[size] = RankHolder(adopted_ratio)
         return dice
 
+    _HAS_SHOW_NO_SEARCH_MSG = False
+
     def crawl(self, pattern, size_list, option="", print_url=False):
         """output: urls, is_new_result"""
         show("查詢標的：", "\"" + pattern + "\"")
@@ -67,7 +69,8 @@ class Crawler(object):
             tried_size += G_SEARCH_PER_REQ_SIZE
         # 'set' to filter out duplicated item (though not expected, but we found g-search may give duplicated result)
         urls = list(set(urls))
-        info('獲得url筆數：', len(urls))
+        if not Crawler._HAS_SHOW_NO_SEARCH_MSG:
+            info('獲得url筆數：', len(urls))
         if print_url:
             for url in urls:
                 show(url)
@@ -123,8 +126,6 @@ class Crawler(object):
     def cache_url(self, key, urls, next_size_ratio):
         self.__has_write = True
         self.__url_map[key] = [datetime.today(), self.get_this_time_new_result_num(key, urls), urls, next_size_ratio]
-
-    _HAS_SHOW_NO_SEARCH_MSG = False
 
     @staticmethod
     def crawl_by_asking_google_search(pattern, start, size, option=""):
