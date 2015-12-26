@@ -70,7 +70,7 @@ class Crawler(object):
         # 'set' to filter out duplicated item (though not expected, but we found g-search may give duplicated result)
         urls = list(set(urls))
         if not Crawler._HAS_SHOW_NO_SEARCH_MSG:
-            info('獲得url筆數：', len(urls))
+            info('標的：%s, 獲得url筆數：%i' %(pattern, len(urls)))
         if print_url:
             for url in urls:
                 show(url)
