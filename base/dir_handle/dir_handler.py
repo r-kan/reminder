@@ -67,7 +67,7 @@ class GraphDirHandler(object):
         cache_file = self.__location + "/" + GraphDirHandler.CACHE_FILE
         cache_existed = os.path.exists(cache_file)
         if cache_existed:
-            [success, cache_data] = load(cache_file)
+            success, cache_data = load(cache_file)
             assert success
             [timestamp, status_cache] = cache_data
             if not self.dir_changed(timestamp):
