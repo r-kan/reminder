@@ -36,8 +36,7 @@ class GraphViewer(object):
         self.__root.geometry(self.__full_geom)
         self.__old_label_image = None
         self.__pending_jobs = []
-        # need keep ref to prevent GC (garbage collection)
-        self.__tk_obj_ref = None
+        self.__tk_obj_ref = None  # need keep ref to prevent GC (garbage collection)
         self.__onscreen_help = False
         self.__onscreen_info = False
         self.__fullscreen_mode = True
@@ -55,8 +54,7 @@ class GraphViewer(object):
         self.__root.bind("<minus>", self.decrement_rank)
         self.__cur_image_obj = None
         self.__cur_image_obj_list = []  # image_obj in list
-        # image_obj in dict (same content as above)
-        self.__cur_image_obj_dict = {}
+        self.__cur_image_obj_dict = {}  # image_obj in dict (same content as above)
         self.__phrase_binding = {}  # key: pattern, value: list of PhraseGroup
         self.__cur_phrase_obj_dict = {}  # key: phrase group name, value: PhraseGroup
         self.__cur_graph_file = None
