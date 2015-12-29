@@ -5,7 +5,7 @@ from __future__ import print_function
 import os
 
 NA = -1
-__DATA_HOME = os.environ['HOME'] + '/reminder/'
+__DATA_HOME = (os.environ['HOME'] if 'HOME' in os.environ else '') + '/reminder/'
 __SLIDESHOW_FREQUENCY = 30  # the frequency in second to have slideshow
 __PHRASE_APPEAR_RATIO = 50  # a fixed percentage ratio (0-100) to show phrase
 __SEARCH_LATENCY = 1
