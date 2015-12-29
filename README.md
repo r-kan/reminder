@@ -33,6 +33,13 @@ which demonstrate the following:
 2. show image by customized setting  
 3. embed image with phrases  
 
+# Hot keys:
+[Right]: Next image  
+[Left]: Previous image  
+[i]: Show image information  
+[Esc]: switch fullscreen/window mode  
+[q]: Exit application
+
 # Author
 rkan
 its_right@msn.com
