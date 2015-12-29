@@ -16,7 +16,7 @@ python2.7
 1. Install `tkinter`  
   **_linux_** apt-get install python-tk  
 2. Install `imageTk/PIL`  
-  **_windows** pip install pillow-_version-num_.whl  
+  **_windows_** pip install pillow-_version-num_.whl  
   **_linux_** apt-get install python-imaging-tk  
   **_osx_** pip install Pillow  
 
