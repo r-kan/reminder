@@ -4,8 +4,20 @@
 from __future__ import print_function, unicode_literals
 import os
 
+
+def get_delim():
+    import platform
+    system_name = platform.system()
+    if "Darwin" in system_name:
+        return "/"
+    elif "Linux" in system_name:
+        return "/"
+    elif "Windows" in system_name:
+        return "\\"
+    return "/"  # default treats it an unix-like system
+
 NA = -1
-__DATA_HOME = (os.environ['HOME'] if 'HOME' in os.environ else '') + '/reminder/'
+__DATA_HOME = (os.environ['HOME'] if 'HOME' in os.environ else '') + get_delim() + 'reminder' + get_delim()
 __SLIDESHOW_FREQUENCY = 30  # the frequency in second to have slideshow
 __PHRASE_APPEAR_RATIO = 50  # a fixed percentage ratio (0-100) to show phrase
 __SEARCH_LATENCY = 1
@@ -65,8 +77,8 @@ def set_data_home(home):
     global __DATA_HOME
     __DATA_HOME = home
     assert len(__DATA_HOME) > 0
-    if __DATA_HOME[-1] != '/':
-        __DATA_HOME += '/'
+    if __DATA_HOME[-1] != get_delim():
+        __DATA_HOME += get_delim()
 
 
 def get_data_home():
@@ -74,7 +86,7 @@ def get_data_home():
 
 
 def get_user_config_file():
-    return os.environ['REM_HOME'] + "/" + os.environ['USER'] + "_config.ini"
+    return os.environ['REM_HOME'] + get_delim() + os.environ['USER'] + "_config.ini"
 
 
 def config_action():

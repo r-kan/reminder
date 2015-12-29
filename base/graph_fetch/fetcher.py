@@ -11,7 +11,7 @@ import ssl
 import urllib2
 from datetime import datetime
 from base.crawler.graph_search import Crawler
-from util.global_def import NA, get_data_home, show, info, error
+from util.global_def import NA, get_data_home, show, info, error, get_delim
 from util.network import reachable as network_reachable
 from util.select import get_random_dict_key, get_weighted_random_dict_key
 from util.serialize import save, load
@@ -25,11 +25,11 @@ DEC_RANK = 4
 
 
 def pic_home():
-    return get_data_home() + "picture/"
+    return get_data_home() + "picture" + get_delim()
 
 
 def pickle_home():
-    return get_data_home() + "pickle/"
+    return get_data_home() + "pickle" + get_delim()
 
 
 class GraphFetcher(object):
@@ -180,10 +180,10 @@ class GraphFetcher(object):
     @staticmethod
     def handle_image(graph_file, action):
         assert action in [DELETE, DISCARD, INC_RANK, DEC_RANK]
-        key_str = "/image_"
+        key_str = get_delim() + "image_"
         end_pos = graph_file.find(key_str)
         assert -1 != end_pos
-        begin_pos = graph_file[:end_pos].rfind("/")
+        begin_pos = graph_file[:end_pos].rfind(get_delim())
         assert -1 != begin_pos
         pattern = graph_file[begin_pos + 1:end_pos]
         has_cache, cached_objs = load(GraphFetcher.get_cache_file(pattern))
@@ -215,7 +215,7 @@ class GraphFetcher(object):
 
     @staticmethod
     def get_graph_dir(pattern):
-        return pic_home() + str(pattern) + "/"
+        return pic_home() + str(pattern) + get_delim()
 
     @staticmethod
     def get_file_encoding(pattern):

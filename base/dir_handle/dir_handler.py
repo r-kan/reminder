@@ -5,7 +5,7 @@ from __future__ import print_function, unicode_literals
 import os
 import time
 from base.graph_fetch.fetcher import INC_RANK, DEC_RANK
-from util.global_def import NA, info
+from util.global_def import NA, info, get_delim
 from util.select import get_weighted_random_dict_key
 from util.serialize import save, load
 
@@ -34,7 +34,7 @@ class GraphDirHandler(object):
         assert action in [INC_RANK, DEC_RANK]
         handler = GraphDirHandler(location)
         assert handler.__valid
-        base_file = graph_file.replace(location + "/", "")
+        base_file = graph_file.replace(location + get_delim(), "")
         for image in handler.__status_cache:
             if image == base_file:
                 has_change = True
@@ -51,7 +51,7 @@ class GraphDirHandler(object):
                         msg = "更改等級至" + str(status.rank)
                 if has_change:
                     handler.__status_cache[image] = status
-                    cache_file = location + "/" + GraphDirHandler.CACHE_FILE
+                    cache_file = location + get_delim() + GraphDirHandler.CACHE_FILE
                     # TODO: it shows that the timestamp not change...
                     timestamp = time.ctime(os.path.getmtime(location))
                     save(cache_file, [timestamp, handler.__status_cache])
@@ -64,7 +64,7 @@ class GraphDirHandler(object):
 
     def __load_or_create_status(self):
         status_cache = {}  # key: image_file, value: status
-        cache_file = self.__location + "/" + GraphDirHandler.CACHE_FILE
+        cache_file = self.__location + get_delim() + GraphDirHandler.CACHE_FILE
         cache_existed = os.path.exists(cache_file)
         if cache_existed:
             success, cache_data = load(cache_file)
@@ -79,8 +79,8 @@ class GraphDirHandler(object):
         image_files = []
         for file_ext in GraphDirHandler.RECOGNIZED_IMAGE_EXT:
             import glob
-            image_files += [image.replace(self.__location + "/", "") for image in
-                            glob.glob(self.__location + "/*." + file_ext)]
+            image_files += [image.replace(self.__location + get_delim(), "") for image in
+                            glob.glob(self.__location + get_delim() + "*." + file_ext)]
         if not image_files:
             if cache_existed:
                 os.remove(cache_file)
@@ -105,7 +105,7 @@ class GraphDirHandler(object):
     def get_graph_digest(self, graph_file):
         if NA is graph_file:
             return "NA"
-        full_graph_file = self.__location + "/" + graph_file
+        full_graph_file = self.__location + get_delim() + graph_file
         timestamp = time.ctime(os.path.getmtime(full_graph_file))
         return "位置：%s\n時間：%s\n等級：%s" % (
             full_graph_file, timestamp, self.__status_cache[graph_file].rank)
@@ -114,7 +114,7 @@ class GraphDirHandler(object):
         if not self.__valid:
             return NA, NA
         graph_file = get_weighted_random_dict_key(self.__status_cache)
-        full_graph_file = self.__location + "/" + graph_file
+        full_graph_file = self.__location + get_delim() + graph_file
         return full_graph_file, self.get_graph_digest(graph_file)
 
 
