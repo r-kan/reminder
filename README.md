@@ -36,8 +36,8 @@ which demonstrate the following:
 # Hot keys:
 [Right]: Next image  
 [Left]: Previous image  
-[i]: Show image information  
 [Esc]: switch fullscreen/window mode  
+[i]: Show image information  
 [q]: Exit application
 
 # Author
