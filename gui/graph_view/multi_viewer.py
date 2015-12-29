@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 from base.setting.image import Image as ImageObj, SettingLoader as ImageSettingLoader
 from base.setting.phrase import SettingLoader as PhraseSettingLoader
 from base.dir_handle.dir_handler import Status  # to let pickle can recognize Status

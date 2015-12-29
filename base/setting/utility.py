@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 from util.select import RankHolder, get_weighted_random_dict_key
 
 PERCENTAGE = 1

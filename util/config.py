@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 from ConfigParser import ConfigParser
 from util.global_def import set_phrase_appear_ratio, get_phrase_appear_ratio, \
     set_slideshow_frequency, get_slideshow_frequency, \
