@@ -34,14 +34,14 @@ which demonstrate the following:
 3. embed image with phrases  
 
 # Hot keys:
-[Right]: Next image  
-[Left]: Previous image  
+[Right]: next image  
+[Left]: previous image  
 [Esc]: switch fullscreen/window mode  
-[i]: Show image information  
-[q]: Exit application
+[i]: show image information  
+[q]: exit application
 
 # Contact
-Contact *rkan* by its_right@msn.com for any question/request/bug without hesitation  
+Contact *rkan* by its_right@msn.com for any question/request/bug without hesitation.  
 
 ***
 Watch screenshots and more other information at http://r-kan.github.io/reminder/
