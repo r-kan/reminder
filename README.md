@@ -41,7 +41,7 @@ which demonstrate the following:
 [q]: exit application
 
 # Contact
-Contact *rkan* by its_right@msn.com for any question/request/bug without hesitation.  
+Please contact *rkan* by its_right@msn.com for any question/request/bug without hesitation.  
 
 ***
 Watch screenshots and more other information at http://r-kan.github.io/reminder/
