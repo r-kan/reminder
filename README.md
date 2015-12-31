@@ -20,7 +20,7 @@ python2.7
   **_linux_** apt-get install python-imaging-tk  
   **_osx_** pip install Pillow  
 
-PS: `requests` is also required to be installed if it is not already existed
+PS: `requests` is also required to be installed if it does not already exist
 
 # Sample usage:  
 cd _reminder_target_directory_  
