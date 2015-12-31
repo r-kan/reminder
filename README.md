@@ -24,9 +24,9 @@ PS: `requests` is also required to be installed if it does not already exist
 
 # Sample usage:  
 cd _reminder_target_directory_  
-1. ./main.py config.ini  
-2. ./main.py config_image.ini  
-3. ./main.py config_phrase.ini  
+1. python main.py config.ini  
+2. python main.py config_image.ini  
+3. python main.py config_phrase.ini  
 
 which demonstrate the following:  
 1. image search/download/slide-show functionality  
