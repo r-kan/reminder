@@ -5,6 +5,11 @@
         "demo_rank_usage"
       ],
       "rank": {"kind": "WEIGHT", "value": 1},
+      "comment":
+      [
+        "use sentence to specify the phrase to be embedded on target image json file",
+        "if there is restrict in a sentence entry, then only the restricted pattern will have phrase embedded"
+      ],
       "sentence": {
         "phrase內容會呈現在所有目標json設定檔中的圖片類型": {},
         "若有指定restrict，則phrase內容只會呈現在指定的圖片類型var(`pattern)中": {"restrict": "dream", "rank": { "kind": "WEIGHT", "value": 2}}

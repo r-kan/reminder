@@ -1,6 +1,7 @@
 {
     "comment":
     [
+        "use attribute to provide the content which phrase setting might use",
         "利用attribute來提供phrase設定可能需要的內容"
     ],
 	"image":

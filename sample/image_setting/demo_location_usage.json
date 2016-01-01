@@ -1,6 +1,7 @@
 {
     "comment":
     [
+        "use location to specify an existed directory contains image",
         "利用location來指定已經存在圖片的資料夾"
     ],
 	"image":
