@@ -18,7 +18,7 @@ class Sentence(object):
         self.__default_values = default_values
 
     def get_default_value(self, var_name):
-        assert var_name in self.__default_values
+        assert var_name in self.__default_values, "need specify default value of \'%s\' in phrase" % var_name
         return self.__default_values[var_name]
 
     def satisfy(self, pattern_name, pattern_group_name):
