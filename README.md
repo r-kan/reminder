@@ -37,7 +37,7 @@ which demonstrate the following:
 [Right]: next image  
 [Left]: previous image  
 [Esc]: switch fullscreen/window mode  
-[i]: show image information  
+[i]: display image information  
 [q]: exit application
 
 # Contact
