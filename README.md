@@ -29,7 +29,7 @@ cd _reminder_target_directory_
 3. python main.py config_phrase.ini  
 
 which demonstrate the following:  
-1. image search/download/slide-show functionality  
+1. image search/download/slideshow functionality  
 2. show image by customized setting  
 3. embed image with phrases  
 
