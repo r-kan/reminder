@@ -1,18 +1,18 @@
 {
-  "phrase": {
-    "這裡可以任意取名，但不能跟其他phrase中的名字重複": {
-      "target": [
-        "demo_attribute_for_phrase"
-      ],
-      "rank": {"kind": "WEIGHT", "value": 1},
-      "comment":
-      [
-        "can use the attribute value (enclosed by var) from corresponding image json setting file in the sentence"
-      ],
-      "sentence": {
-        "可以用對應json設定檔中寫好的中文名\"var(中文名)\"來造句": {"default_arg_value": {"中文名": "var(`pattern)"}},
-        "也可以用寫好的一或多個主角名\"var(主角)\"來造句": {"default_arg_value": {"主角": "var(`pattern)中的角色們"}}
-      }
+    "phrase": 
+    {
+        "這裡可以任意取名，但不能跟其他phrase中的名字重複": 
+        {
+            "target": ["demo_attribute_for_phrase"],
+            "rank": {"kind": "WEIGHT", "value": 1},
+            "comment": [
+                "can use the attribute value (enclosed by var) from corresponding image json setting file in the sentence"
+            ],
+            "sentence": 
+            {
+                "可以用對應json設定檔中寫好的中文名\"var(中文名)\"來造句": {"default_arg_value": {"中文名": "var(`pattern)"}},
+                "也可以用寫好的一或多個主角名\"var(主角)\"來造句": {"default_arg_value": {"主角": "var(`pattern)中的角色們"}}
+            }
+        }
     }
-  }
 }
