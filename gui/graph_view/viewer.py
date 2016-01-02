@@ -89,6 +89,8 @@ class GraphViewer(object):
         last_graph = self.__graph_history.pop()
         self.__graph_history.appendleft(last_graph)
         self.set_graph(*self.__graph_history.pop())
+        self.cancel_pending_jobs()
+        self.prepare_for_next_view(get_slideshow_frequency() * 1000)
 
     def increment_rank(self, *unused):
         info("增加等級：", self.__cur_graph_file)
