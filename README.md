@@ -1,5 +1,5 @@
 # Reminder
-better reminder, more customized slideshow tool
+better reminder, more customizable slideshow tool
 ==========================
 
 Reminder, beyond an image slideshow tool, has the following unique features:  
