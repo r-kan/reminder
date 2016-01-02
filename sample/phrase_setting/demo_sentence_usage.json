@@ -6,7 +6,8 @@
             "target": ["demo_attribute_for_phrase"],
             "rank": {"kind": "WEIGHT", "value": 1},
             "comment": [
-                "can use the attribute value (enclosed by var) from corresponding image json setting file in the sentence"
+                "can use the attribute value (enclosed by var) from corresponding image json setting file in the sentence",
+                "note that if corresponding attribute is not present, we need provide default_arg_value"
             ],
             "sentence": 
             {

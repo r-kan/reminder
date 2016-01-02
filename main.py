@@ -19,7 +19,7 @@ class Reminder(object):
                         self.__help()
                         sys.exit()
                     else:
-                        print("無法辨認的option：", argument)
+                        print("無法辨認的option：", argument)  # unrecognized option: argument
                 else:
                     config_file = argument
         self.__image_setting = []
@@ -32,7 +32,7 @@ class Reminder(object):
         config.set_general_setting()
         image_target = config.get_setting("image", "target")
         if not image_target:
-            print("沒有指定圖片，程式即將結束")
+            print("沒有指定圖片，程式即將結束")  # no image is specified, program exits
             sys.exit()
         phrase_target = config.get_setting("phrase", "target")
         import glob

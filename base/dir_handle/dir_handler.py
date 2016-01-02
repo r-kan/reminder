@@ -41,13 +41,16 @@ class GraphDirHandler(object):
                 status = handler.__status_cache[image]
                 if INC_RANK == action:
                     status.rank += 1
+                    # change rank to str(status.rank)
                     msg = "更改等級至" + str(status.rank)
                 else:
                     if 1 == status.rank:
+                        # already as the lowest rank, cannot be lower!
                         msg = "已經是最低等級，無法再降低！"
                         has_change = False
                     else:
                         status.rank -= 1
+                        # change rank to str(status.rank)
                         msg = "更改等級至" + str(status.rank)
                 if has_change:
                     handler.__status_cache[image] = status
@@ -73,8 +76,10 @@ class GraphDirHandler(object):
             if not self.dir_changed(timestamp):
                 return status_cache
             else:
+                # directory self.__location has changed, will update cache file
                 info("資料夾", self.__location, "已改變，更新快取檔案")
         else:
+            # create a new cache file for directory self.__location
             info("建立一個新的資料夾", self.__location, "的快取檔案")
         image_files = []
         for file_ext in GraphDirHandler.RECOGNIZED_IMAGE_EXT:
@@ -107,6 +112,7 @@ class GraphDirHandler(object):
             return "NA"
         full_graph_file = self.__location + get_delim() + graph_file
         timestamp = time.ctime(os.path.getmtime(full_graph_file))
+        # location - timestamp - rank
         return "位置：%s\n時間：%s\n等級：%s" % (
             full_graph_file, timestamp, self.__status_cache[graph_file].rank)
 
