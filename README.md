@@ -44,4 +44,4 @@ which demonstrate the following:
 Please contact *rkan* by its_right@msn.com for any question/request/bug without hesitation.  
 
 ***
-Watch screenshots and more information at http://r-kan.github.io/reminder/
+Watch screenshots and more information at http://r-kan.github.io/reminder/!
