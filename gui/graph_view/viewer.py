@@ -156,7 +156,7 @@ class GraphViewer(object):
     def prepare_for_next_view(self, wait_time, msg=None):
         if msg:
             show(msg)
-        job = self.__root.after(wait_time, lambda: self.timer_action())
+        job = self.__root.after(int(wait_time), lambda: self.timer_action())
         self.__pending_jobs.append(job)
 
     def cancel_pending_jobs(self):

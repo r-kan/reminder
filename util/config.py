@@ -26,7 +26,7 @@ class Config(object):
         data_home = get_data_home() if not self.__config.has_option("reminder", "data_location") else \
             self.__config.get("reminder", "data_location")
         slideshow_frequency = get_slideshow_frequency() if not self.__config.has_option("image", "slideshow_frequency") else \
-            int(self.__config.get("image", "slideshow_frequency"))
+            float(self.__config.get("image", "slideshow_frequency"))
         phrase_appear_ratio = get_phrase_appear_ratio() if not self.__config.has_option("phrase", "ratio") else \
             float(self.__config.get("phrase", "ratio"))
         search_latency = get_search_latency() if not self.__config.has_option("image", "search_latency") else \
