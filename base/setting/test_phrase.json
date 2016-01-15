@@ -11,7 +11,7 @@
       },
       "sentence": {
         "喜歡var(中文名)嗎？原因是...？": {
-          "default_arg_value": {
+          "default_value": {
             "中文名": "var('pattern)"
           },
           "rank": {
@@ -21,7 +21,7 @@
           "restrict": "The Matrix"
         },
         "var(主角)如何面對問題，作出抉擇？": {
-          "default_arg_value": {
+          "default_value": {
             "主角": "var('pattern)的主角"
           },
           "rank": {
