@@ -2,13 +2,30 @@
     "comment":
     [
         "use attribute to provide the content which phrase setting might use",
-        "the following shows that the Chinese name(中文名) of Inside Out is 腦筋急轉彎, ",
-        "and the name of its major character(主角) is Joy(樂樂)",
-        "利用attribute來提供phrase設定可能需要的內容"
+        "for example, main character of the movie Inside out is Joy and Sadness"
+    ],
+    "註解":
+    [
+        "利用attribute提供phrase設定中可以利用的內容",
+        "譬如電影無敵破壞王的主角是拉魯夫以及雲妮露"
     ],
     "image":
     {
-        "Inside Out":     {"attribute": {"中文名": "腦筋急轉彎", "主角": "樂樂"}},
-        "Wreck-It Ralph": {"attribute": {"中文名": "無敵破壞王", "主角": ["Ralph", "Vanellope"]}}
+        "Inside Out":
+        {
+            "attribute":
+            {
+                "main character": ["Joy", "Sadness"],
+                "主角": ["樂樂", "憂憂"]
+            }
+        },
+        "Wreck-It Ralph":
+        {
+            "attribute":
+            {
+                "main character": ["Ralph", "Vanellope"],
+                "主角": ["拉魯夫", "雲妮露"]
+            }
+        }
     }
 }

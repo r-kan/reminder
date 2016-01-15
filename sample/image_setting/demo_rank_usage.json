@@ -1,19 +1,22 @@
 {
     "comment":
     [
-        "use rank to customize how the image will be shown",
-        "1. use (kind, value) pair to specify how frequently the pattern of image will be shown",
+        "use rank to customize how the image will be selected",
+        "1. use (kind, value) pair to specify how frequently the pattern of image will be selected",
             "the value of WEIGHT represents a selected weight; the value of PERCENTAGE represents a selected possibility",
-        "2. use period to constrain the time the pattern of image can appear, the format is hhmm-hhmm",
-        "rank用來設定圖片如何被呈現：",
-        "1. 可以(kind, value) pair來設定該圖片類型顯示的頻率",
-            "其中WEIGHT的value指明被選擇的權重，PERCENTAGE的value指明被選擇的機率",
-        "2. 可以period限制該圖片類型顯示的時間，格式為hhmm-hhmm"
+        "2. use period to constrain the time the pattern of image can appear, the format is hhmm-hhmm"
+    ],
+    "註解":
+    [
+        "rank用來設定圖片被呈現的時機：",
+        "1. 使用(kind, value) pair來設定該圖片類型顯示的頻率",
+            "其中WEIGHT的value指定被選擇的權重，PERCENTAGE的value指定被選擇的機率",
+        "2. 使用period限制該圖片類型顯示的時間，格式為hhmm-hhmm"
     ],
     "image":
     {
         "generous": {"rank": {"kind": "WEIGHT", "value": 1}},
         "dream": {"rank": {"kind": "PERCENTAGE", "value": 20}},
-        "good night": {"rank": {"kind": "PERCENTAGE", "value": 30, "period": "2300-0100"}}
+        "good night": {"rank": {"kind": "PERCENTAGE", "value": 30, "period": "2300-0030"}}
     }
 }

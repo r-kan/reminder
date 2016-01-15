@@ -1,25 +1,26 @@
 {
     "phrase": 
     {
-        "這裡可以任意取名": 
+        "demo usage of restrict":
         {
             "target": ["demo_rank_usage"],
             "rank": {"kind": "WEIGHT", "value": 1},
-            "comment":
-            [
-                "use sentence to specify the phrase to be embedded on target image json file",
-                "if there is restrict in a sentence entry, then only the restricted pattern will have phrase embedded"
-            ],
             "sentence": 
             {
+                "use sentence to specify the phrase to be embedded on target image json file": {},
+                "if there is \"restrict\", then phrase will only be embedded in specified pattern \"var(`pattern)\"": {"restrict": "dream", "rank": { "kind": "WEIGHT", "value": 2}},
                 "phrase內容會呈現在所有目標json設定檔中的圖片類型": {},
-                "若有指定restrict，則phrase內容只會呈現在指定的圖片類型var(`pattern)中": {"restrict": "dream", "rank": { "kind": "WEIGHT", "value": 2}}
+                "若指定\"restrict\"，則phrase內容只會呈現在指定的圖片類型\"var(`pattern)\"中": {"restrict": "dream", "rank": { "kind": "WEIGHT", "value": 2}}
             }
         },
-        "已存在圖片庫": 
+        "phrase for existed image library":
         {
             "target": ["demo_location_usage"],
-            "sentence": {"事先存在的圖片也可搭配予phrase": {}}
+            "sentence":
+            {
+              "pre-existed image library can have phrase as well": {},
+              "事先存在的圖片也可搭配予phrase": {}
+            }
         }
     }
 }

@@ -1,18 +1,16 @@
 {
     "phrase": 
     {
-        "這裡可以任意取名，但不能跟其他phrase中的名字重複": 
+        "have an unique name in phrases here":
         {
             "target": ["demo_attribute_for_phrase"],
             "rank": {"kind": "WEIGHT", "value": 1},
-            "comment": [
-                "can use the attribute value (enclosed by var) from corresponding image json setting file in the sentence",
-                "note that if corresponding attribute is not present, we need provide default_arg_value"
-            ],
-            "sentence": 
+            "sentence":
             {
-                "可以用對應json設定檔中寫好的中文名\"var(中文名)\"來造句": {"default_arg_value": {"中文名": "var(`pattern)"}},
-                "也可以用寫好的一或多個主角名\"var(主角)\"來造句": {"default_arg_value": {"主角": "var(`pattern)中的角色們"}}
+                "use attribute in image to make phrases, e.g., \"var(main character)\" in me": {},
+                "if no such attribute, e.g., \"var(how you feel about it)\", then must provide default_value": {"default_value": {"how you feel about it": "i love var(`pattern)!"}},
+                "可用image的attribute來造句，如我的心中住著一位\"var(主角)\"": {},
+                "若不存在該attribute，如\"var(對它的感覺)\"，就要提供default_value": {"default_value": {"對它的感覺": "我愛var(`pattern)！"}}
             }
         }
     }

@@ -38,8 +38,8 @@ class Sentence(object):
             data["rank"]) if "rank" in data else Rank.create_default()
         restrict = str(data["restrict"]) if "restrict" in data else None
         default_values = {}
-        if "default_arg_value" in data:
-            raw_data = data["default_arg_value"]
+        if "default_value" in data:
+            raw_data = data["default_value"]
             assert isinstance(raw_data, dict)
             for var_name in raw_data:
                 default_values[var_name] = raw_data[var_name]
