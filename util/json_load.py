@@ -5,6 +5,8 @@
 
 from __future__ import print_function
 import json
+from util.global_def import error, get_msg
+from util.message import Msg
 
 
 class JsonLoader(object):
@@ -13,8 +15,9 @@ class JsonLoader(object):
         self.__fd = open(in_file)
         try:
             self.__json_data = json.load(self.__fd)
-        except:
-            print("讀取檔案\"", in_file, "\"失敗")
+        except Exception, e:
+            error(get_msg(Msg.fail_read_file) + "\"", in_file, "\"")
+            error(str(e))
             assert False
 
     def __del__(self):

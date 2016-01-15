@@ -5,7 +5,8 @@ from __future__ import print_function, unicode_literals
 import json
 import requests
 from datetime import datetime, timedelta
-from util.global_def import NA, get_data_home, show, info, error
+from util.global_def import NA, get_data_home, show, info, error, get_msg
+from util.message import Msg
 from util.network import reachable as network_reachable
 from util.serialize import save, load
 from util.select import RankHolder, get_weighted_random_dict_key
@@ -44,8 +45,7 @@ class Crawler(object):
 
     def crawl(self, pattern, size_list, option="", print_url=False):
         """output: urls, is_new_result"""
-        # Search target: "pattern"
-        show("查詢標的：", "\"" + pattern + "\"")
+        show(get_msg(Msg.search_target), "\"" + pattern + "\"")
         key = Crawler.get_search_key(pattern, option)
         urls, size_ratio = self.get_recent_result(key)
         if urls:
@@ -71,8 +71,9 @@ class Crawler(object):
         # 'set' to filter out duplicated item (though not expected, but we found g-search may give duplicated result)
         urls = list(set(urls))
         if not Crawler._HAS_SHOW_NO_SEARCH_MSG:
-            # target: pattern, acquired url count: len(urls)
-            info('標的：%s, 獲得url筆數：%i' % (pattern, len(urls)))
+            info("%s：%s, %s：%i" % (
+              get_msg(Msg.target), pattern,
+              get_msg(Msg.acquired_url_count), len(urls)))
         if print_url:
             for url in urls:
                 show(url)
@@ -88,8 +89,7 @@ class Crawler(object):
             return None, None
         [retrieved_date, new_result, urls, size_ratio] = self.__url_map[key]
         if not self.__network_reachable:
-            # use last search result (due to network access is not available)
-            show("使用上一次的搜尋結果（由於無網路連線）")
+            show(get_msg(Msg.use_previous_search_result))
             # though size_ratio can be valid, we do not return it for caller usage is not expected
             return urls, None
         # spec.: we will execute a new search when there is enough new result on previous search
@@ -108,12 +108,11 @@ class Crawler(object):
         to_next_query = timedelta(days=valid_day_size) - date_diff
         hours, remainder = divmod(to_next_query.seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
-        # time to next search: day - hour - minute - second, currently there is len(urls) url
-        show("距離下次搜尋：",
-             to_next_query.days, "天",
-             hours, "時",
-             minutes, "分",
-             seconds, "秒", ", 現有", len(urls), "筆url")
+        show(get_msg(Msg.to_next_search),
+             to_next_query.days, get_msg(Msg.day),
+             hours, get_msg(Msg.hour),
+             minutes, get_msg(Msg.minute),
+             seconds, (get_msg(Msg.second) + ","), get_msg(Msg.current_url_count), len(urls))
         # though size_ratio can be valid, we do not return it for caller usage is not expected
         return urls, None
 
@@ -140,8 +139,7 @@ class Crawler(object):
         if not api_key or not cx:
             if not Crawler._HAS_SHOW_NO_SEARCH_MSG:
                 Crawler._HAS_SHOW_NO_SEARCH_MSG = True
-                # api_key and cx for Google custom search is not specified, no image search will be performed
-                info("沒有指定Google custom search需要的api_key及cx，將不進行圖片搜尋")
+                info(get_msg(Msg.no_search_due_to_no_api_key_and_cx))
             return [], False
         size_option = "&imgSize=" + size if size else ""
         full_option = size_option + (option if option else "")
@@ -161,8 +159,7 @@ class Crawler(object):
                 url = image_info['link']
                 urls.append(url)
         except TypeError as e:  # for unhandled error...
-            # fail to fetch the newest url of image: str(e)
-            info("無法擷取最新的圖片網址：", str(e))
+            info(get_msg(Msg.cannot_fetch_image_url), str(e))
             success = False
         return urls, success
 
@@ -173,8 +170,7 @@ class Crawler(object):
     @staticmethod
     def print_error(data):
         assert isinstance(data, dict) and "message" in data
-        # search engine returns error message: data["message"]
-        error("搜尋引擎傳回錯誤訊息：", data["message"])
+        error(get_msg(Msg.search_engine_err_msg), data["message"])
 
 
 if __name__ == '__main__':

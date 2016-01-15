@@ -11,15 +11,16 @@ import ssl
 import urllib2
 from datetime import datetime
 from base.crawler.graph_search import Crawler
-from util.global_def import NA, get_data_home, show, info, error, get_delim
+from util.global_def import NA, get_data_home, show, info, error, get_delim, get_msg
+from util.message import Msg
 from util.network import reachable as network_reachable
 from util.select import get_random_dict_key, get_weighted_random_dict_key
 from util.serialize import save, load
 
 ImageSlot = collections.namedtuple('ImageSlot', ('timestamp', 'encoding', 'rank'))
 
-DELETE = 1  # 刪除圖片，不再從該url擷取
-DISCARD = 2  # 刪除圖片，會從該url重新擷取
+DELETE = 1  # remove image, and skip fetching from corresponding url again
+DISCARD = 2  # remove image, and will re-fetching from corresponding url
 INC_RANK = 3
 DEC_RANK = 4
 
@@ -61,8 +62,7 @@ class GraphFetcher(object):
     def fetch(self, pattern):
         self.__has_write = False
         new_objs, old_objs = self.get_updated_url(pattern)
-        # total number of data
-        show("全部資料筆數：", len(new_objs) + len(old_objs))
+        show(get_msg(Msg.total_data_count), len(new_objs) + len(old_objs))
         url = self.choose_url(new_objs, old_objs)
         if NA == url:
             return NA, NA
@@ -83,9 +83,10 @@ class GraphFetcher(object):
         relative_pos = graph_file.find(pic_home())
         assert 0 == relative_pos
         relative_graph_file = graph_file[len(pic_home()):]
-        # location - timestamp - rank
-        return "位置：%s\n時間：%s\n等級：%s" % (
-            relative_graph_file, url_obj.timestamp.strftime("%B %d, %Y"), url_obj.rank)
+        return "%s：%s\n%s：%s\n%s：%s" % (
+            get_msg(Msg.location), relative_graph_file,
+            get_msg(Msg.timestamp), url_obj.timestamp.strftime("%B %d, %Y"),
+            get_msg(Msg.rank), url_obj.rank)
 
     @staticmethod
     def choose_url(new_objs, old_objs):
@@ -143,46 +144,37 @@ class GraphFetcher(object):
             try:
                 os.makedirs(graph_dir)
             except OSError as e:
-                # cannot create a directory, program exits
-                error("無法新增資料夾，程式即將結束：", str(e))
+                error(get_msg(Msg.cannot_create_directory), str(e))
                 import sys
                 sys.exit()
         abs_graph_file = graph_dir + "image_" + file_encoding + ".jpg"
         if os.path.exists(abs_graph_file):
             return abs_graph_file, file_encoding
         if not self.__network_reachable:
-            # give up fetching image (due to network access is not available)
-            info("放棄擷取圖片（由於無網路連線）")
+            info(get_msg(Msg.give_up_fetch_image))
             return NA, None
         self.__has_write = True
         try:
-            # fetch image from: url
-            info("擷取圖片於：", url)
+            info(get_msg(Msg.fetch_image), url)
             try:
                 web_content = urllib2.urlopen(url, timeout=10)
             except httplib.BadStatusLine:
-                # obtain an unrecognized status code: url
-                info("獲得無法辨識的狀態碼：", url)
+                info(get_msg(Msg.obtain_unrecognized_status_code), url)
                 return NA, NA
             fd = open(abs_graph_file, 'wb')
             fd.write(web_content.read())
             fd.close()
             assert os.path.exists(abs_graph_file)
             if os.stat(abs_graph_file).st_size <= 10240:
-                # give up obtained image with size --- Bytes
-                # delete image -
-                info("放棄獲得的圖片，其大小為:", os.stat(abs_graph_file).st_size, "Bytes")
-                info("刪除圖片：", abs_graph_file)
+                info(get_msg(Msg.give_up_acquired_image_with_size), os.stat(abs_graph_file).st_size, "Bytes")
+                info(get_msg(Msg.remove_image), abs_graph_file)
                 os.remove(abs_graph_file)
                 return NA, NA
-            # fetch success
-            info("擷取成功！")
+            info(get_msg(Msg.fetch_succeed))
             return abs_graph_file, file_encoding
         except (IOError, httplib.IncompleteRead, ssl.CertificateError) as e:
-            # cannot save image from url: url
-            # error message: str(e)
-            info("無法由url儲存圖片：", url)
-            info("錯誤訊息：", str(e))
+            info(get_msg(Msg.failed_url), url)
+            info(get_msg(Msg.error_message), str(e))
             if os.path.exists(abs_graph_file):
                 os.remove(abs_graph_file)
             return NA, NA
@@ -216,11 +208,9 @@ class GraphFetcher(object):
                 save(GraphFetcher.get_cache_file(pattern), cached_objs)
                 if action in [DELETE, DISCARD]:
                     os.remove(graph_file)
-                # change rank to -
-                # already as the lowest rank, cannot be lower!
                 msg = "" if action in [DELETE, DISCARD] else \
-                    "更改等級至" + str(new_rank) + "！" if new_rank is not image_slot.rank else \
-                    "已經是最低等級，無法再降低！" if image_slot.rank is 1 else \
+                    get_msg(Msg.change_rank_to) + str(new_rank) + "！" if new_rank is not image_slot.rank else \
+                    get_msg(Msg.cannot_lower_down_rank_as_it_is_already_the_lowest) if image_slot.rank is 1 else \
                     None
                 assert msg is not None
                 return msg
@@ -256,6 +246,6 @@ if __name__ == '__main__':
     _obj = GraphFetcher()
     graph_file, digest = _obj.fetch("Inside Out")
     if NA == graph_file:
-        print("圖片擷取不成功")  # fail to fetch image
+        print(get_msg(Msg.fetch_image_fail))
     else:
         print(graph_file)

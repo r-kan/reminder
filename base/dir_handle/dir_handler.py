@@ -5,7 +5,8 @@ from __future__ import print_function, unicode_literals
 import os
 import time
 from base.graph_fetch.fetcher import INC_RANK, DEC_RANK
-from util.global_def import NA, info, get_delim
+from util.global_def import NA, info, get_delim, get_msg
+from util.message import Msg
 from util.select import get_weighted_random_dict_key
 from util.serialize import save, load
 
@@ -26,9 +27,6 @@ class GraphDirHandler(object):
         self.__valid = os.path.exists(self.__location)
         self.__status_cache = self.__load_or_create_status()
 
-    def __del__(self):
-        pass
-
     @staticmethod
     def handle_image(location, graph_file, action):
         assert action in [INC_RANK, DEC_RANK]
@@ -41,17 +39,14 @@ class GraphDirHandler(object):
                 status = handler.__status_cache[image]
                 if INC_RANK == action:
                     status.rank += 1
-                    # change rank to str(status.rank)
-                    msg = "更改等級至" + str(status.rank)
+                    msg = get_msg(Msg.change_rank_to) + str(status.rank)
                 else:
                     if 1 == status.rank:
-                        # already as the lowest rank, cannot be lower!
-                        msg = "已經是最低等級，無法再降低！"
+                        msg = get_msg(Msg.cannot_lower_down_rank_as_it_is_already_the_lowest)
                         has_change = False
                     else:
                         status.rank -= 1
-                        # change rank to str(status.rank)
-                        msg = "更改等級至" + str(status.rank)
+                        msg = get_msg(Msg.change_rank_to) + str(status.rank)
                 if has_change:
                     handler.__status_cache[image] = status
                     cache_file = location + get_delim() + GraphDirHandler.CACHE_FILE
@@ -76,11 +71,9 @@ class GraphDirHandler(object):
             if not self.dir_changed(timestamp):
                 return status_cache
             else:
-                # directory self.__location has changed, will update cache file
-                info("資料夾", self.__location, "已改變，更新快取檔案")
+                info(get_msg(Msg.directory), self.__location, get_msg(Msg.has_changed_update_cache_file))
         else:
-            # create a new cache file for directory self.__location
-            info("建立一個新的資料夾", self.__location, "的快取檔案")
+            info("%s%s" %(get_msg(Msg.create_new_cache_file_for_directory), self.__location))
         image_files = []
         for file_ext in GraphDirHandler.RECOGNIZED_IMAGE_EXT:
             import glob
@@ -112,9 +105,10 @@ class GraphDirHandler(object):
             return "NA"
         full_graph_file = self.__location + get_delim() + graph_file
         timestamp = time.ctime(os.path.getmtime(full_graph_file))
-        # location - timestamp - rank
-        return "位置：%s\n時間：%s\n等級：%s" % (
-            full_graph_file, timestamp, self.__status_cache[graph_file].rank)
+        return "%s：%s\n%s：%s\n%s：%s" % (
+            get_msg(Msg.location), full_graph_file,
+            get_msg(Msg.timestamp), timestamp,
+            get_msg(Msg.rank), self.__status_cache[graph_file].rank)
 
     def get_graph(self):
         if not self.__valid:

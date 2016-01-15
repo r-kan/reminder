@@ -3,6 +3,7 @@
 
 from __future__ import print_function, unicode_literals
 import os
+from util.message import EN, Msg
 
 
 def get_delim():
@@ -21,8 +22,22 @@ __DATA_HOME = (os.environ['HOME'] if 'HOME' in os.environ else '') + get_delim()
 __SLIDESHOW_FREQUENCY = 30  # the frequency in second to have slideshow
 __PHRASE_APPEAR_RATIO = 50  # a fixed percentage ratio (0-100) to show phrase
 __SEARCH_LATENCY = 1
+__LANG = EN
 __API_KEY = ''
 __CX = ''
+
+
+def set_lang(lang):
+    global __LANG
+    __LANG = lang
+
+
+def get_lang():
+    return __LANG
+
+
+def get_msg(msg_id):
+    return Msg.get(__LANG, msg_id)
 
 
 def set_api_key(api_key):
@@ -86,7 +101,7 @@ def get_data_home():
 
 
 def get_user_config_file():
-    return os.environ['REM_HOME'] + get_delim() + os.environ['USER'] + "_config.ini"
+    return __DATA_HOME + "config.ini"
 
 
 def config_action():
@@ -110,11 +125,11 @@ class CustomPrint(object):
 
     # noinspection PyMethodMayBeStatic
     def info(self, *msg):
-        print("[訊息]", *msg)
+        print("[" + get_msg(Msg.information) + "]", *msg)
 
     # noinspection PyMethodMayBeStatic
     def error(self, *msg):
-        print("[錯誤]", *msg)
+        print("[" + get_msg(Msg.error) + "]", *msg)
 
 
 __OUT = CustomPrint(False)

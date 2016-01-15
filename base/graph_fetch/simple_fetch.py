@@ -9,11 +9,11 @@ url = "http://xxx.com/yyy.jpg"
 abs_graph_file = "foo.jpg"
 try:
     f = open(abs_graph_file, 'wb')
-    print("擷取圖片於：", url)
+    print("fetch image：", url)
     f.write(urllib2.urlopen(url, timeout=3).read())
     f.close()
     # image.retrieve(url, abs_graph_file)
     assert os.path.exists(abs_graph_file)
-    print("擷取成功！")
+    print("fetch succeed！")
 except IOError as e:
-    print("無法由url儲存圖片：", url)
+    print("cannot store image：", url)

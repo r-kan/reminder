@@ -3,17 +3,19 @@
 
 from __future__ import print_function, unicode_literals
 import urllib2
+from util.global_def import get_msg
+from util.message import Msg
 
 
 def check_access_status():
-    print("檢查網路連線...")
+    print(get_msg(Msg.check_network_connection))
     try:
         urllib2.urlopen('http://google.com', timeout=3)
-        print("狀態：連線正常")
+        print(get_msg(Msg.network_status_succeed))
         return True
     except urllib2.URLError:
         pass
-    print("狀態：連線失敗")
+    print(get_msg(Msg.network_status_fail))
     return False
 
 

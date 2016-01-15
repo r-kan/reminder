@@ -22,7 +22,7 @@ try:
     tmp = image
 except IOError as e:
     # some image cannot be opened (maybe it's not image format?), err msg is 'cannot identify image file'
-    print("無法打開圖片：", str(e))
+    print("cannot open image", str(e))
 root.geometry('%dx%d+0+0' % (image.size[0], image.size[1]))
 tk_image_obj = ImageTk.PhotoImage(tmp)
 label_image = Tkinter.Label(root, image=tk_image_obj)

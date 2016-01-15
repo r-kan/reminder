@@ -4,6 +4,8 @@
 from __future__ import print_function, unicode_literals
 import sys
 from gui.graph_view.multi_viewer import MultiGraphViewer
+from util.global_def import get_msg
+from util.message import Msg
 
 DEFAULT_CONFIG_FILE = "config.ini"
 
@@ -19,7 +21,7 @@ class Reminder(object):
                         self.__help()
                         sys.exit()
                     else:
-                        print("無法辨認的option：", argument)  # unrecognized option: argument
+                        print("unrecognized option：", argument)
                 else:
                     config_file = argument
         self.__image_setting = []
@@ -32,7 +34,7 @@ class Reminder(object):
         config.set_general_setting()
         image_target = config.get_setting("image", "target")
         if not image_target:
-            print("沒有指定圖片，程式即將結束")  # no image is specified, program exits
+            print(get_msg(Msg.not_any_image_specified_program_exit))
             sys.exit()
         phrase_target = config.get_setting("phrase", "target")
         import glob

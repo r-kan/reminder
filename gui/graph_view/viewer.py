@@ -13,8 +13,9 @@ from base.graph_fetch.fetcher import ImageSlot  # to let pickle can recognize Im
 from base.dir_handle.dir_handler import GraphDirHandler
 from base.setting.utility import RankArbitrator as Arbitrator
 from base.setting.image import Image as ImageObj
-from util.global_def import show, info, error
+from util.global_def import show, info, error, get_msg
 from util.global_def import NA, get_slideshow_frequency, get_phrase_appear_ratio
+from util.message import Msg
 
 __BG__ = 'black'
 
@@ -78,9 +79,8 @@ class GraphViewer(object):
 
     def delete_image(self, *unused):
         if self.__cur_image_obj.location:
-            return  # spec.: 不支援在reminder介面刪除外部給定的圖片
-        # delete image
-        info("刪除圖片：", self.__cur_graph_file)
+            return  # spec.: not support remove image that user 'specified'
+        info(get_msg(Msg.remove_image), self.__cur_graph_file)
         self.__graph_history.remove([self.__cur_image_obj, self.__cur_graph_file])
         GraphFetcher.handle_image(self.__cur_graph_file, DELETE)
         self.cancel_pending_jobs()
@@ -94,8 +94,7 @@ class GraphViewer(object):
         self.prepare_for_next_view(get_slideshow_frequency() * 1000)
 
     def increment_rank(self, *unused):
-        # increase rank
-        info("增加等級：", self.__cur_graph_file)
+        info(get_msg(Msg.increase_rank), self.__cur_graph_file)
         if self.__cur_image_obj.location:
             msg = GraphDirHandler.handle_image(self.__cur_image_obj.location, self.__cur_graph_file, INC_RANK)
         else:
@@ -104,8 +103,7 @@ class GraphViewer(object):
         self.show_onscreen_info()
 
     def decrement_rank(self, *unused):
-        # decrease rank
-        info("減少等級：", self.__cur_graph_file)
+        info(get_msg(Msg.decrease_rank), self.__cur_graph_file)
         if self.__cur_image_obj.location:
             msg = GraphDirHandler.handle_image(self.__cur_image_obj.location, self.__cur_graph_file, DEC_RANK)
         else:
@@ -170,8 +168,7 @@ class GraphViewer(object):
             while not choice_pattern:
                 choice_pattern = self.__arbitrator.arbitrate()
                 if not choice_pattern:
-                    # no available image now, will wait for ten minutes...
-                    show("現在無可使用的圖片，等待十分鐘...")
+                    show(get_msg(Msg.no_available_image_wait_10_minutes))
                     self.__root.withdraw()
                     import time
                     time.sleep(600)
@@ -222,8 +219,7 @@ class GraphViewer(object):
     def timer_action(self):
         success = self.set_graph(self.select_pattern())
         if not success:
-            # try fetch image again
-            self.prepare_for_next_view(1, "再次嘗試獲取圖片")
+            self.prepare_for_next_view(1, get_msg(Msg.try_fetch_image_again))
             return
         self.prepare_for_next_view(get_slideshow_frequency() * 1000)
 
@@ -266,8 +262,8 @@ class GraphViewer(object):
             try:
                 resized = image.resize((resize_width, resize_height), Image.ANTIALIAS)
             except IOError as e:
-                # fail to transfer image to fullscreen
-                info("將圖片轉換成全畫面失敗：", str(e))  # 我們發現incomplete downloaded image可能到這兒
+                # 'incomplete downloaded image' may go here
+                info(get_msg(Msg.fail_to_convert_image_to_fullscreen), str(e))
                 GraphFetcher().handle_image(graph_file, DISCARD)
                 return False
             image = resized
@@ -300,17 +296,16 @@ class GraphViewer(object):
             image = GraphViewer.get_image(graph_file)
         except IOError as e:
             # some image cannot be opened (maybe it's not image format?), err msg is 'cannot identify image file'
-            info("無法打開圖片：", str(e))  # cannot open the image: str(e)
+            info(get_msg(Msg.fail_to_open_image), str(e))
             GraphFetcher().handle_image(graph_file, DELETE)
             return False
         # we met "Decompressed Data Too Large" for ~/Inside Out/Image_124.jpg...
         except ValueError as e:
-            info("無法打開圖片：", str(e))  # cannot open the image: str(e)
+            info(get_msg(Msg.fail_to_open_image), str(e))
             return False
         self.__cur_graph_file = graph_file
         self.__graph_history.append([self.__cur_image_obj, self.__cur_graph_file])
-        # size
-        self.__cur_digest = digest + "\n大小：%sx%s" % (image.size[0], image.size[1])
+        self.__cur_digest = digest + "\n%s：%sx%s" % (get_msg(Msg.size), image.size[0], image.size[1])
         self.select_phrase(image_obj.pattern)
         return self.set_graph_content(graph_file, image)
 
@@ -342,8 +337,7 @@ class GraphViewer(object):
             # the WTF 'mutable default argument' property makes us not have [] firstly
             phrase_obj_list = []
         if not image_obj_list:
-            # no image is specified, program exits
-            info("沒有指定圖片，程式即將結束")
+            info(get_msg(Msg.not_any_image_specified_program_exit))
             sys.exit()
         self.setup_image_stuff(image_obj_list)
         self.setup_phrase_stuff(image_obj_list, phrase_obj_list)
@@ -365,9 +359,7 @@ class GraphViewer(object):
 
     @staticmethod
     def help_str():
-        # [esc]switch fullscreen, [delete]delete image, [h]help, [i]information
-        # [->]next image, [<-]previous image, [q]exit
-        return "[esc]切換全畫面, [delete]刪除圖片, [h]求助, [i]訊息, [->]下一張, [<-]上一張, [q]離開"
+        return get_msg(Msg.help_message)
 
 
 if __name__ == '__main__':

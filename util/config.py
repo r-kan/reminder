@@ -8,7 +8,9 @@ from util.global_def import set_phrase_appear_ratio, get_phrase_appear_ratio, \
     set_search_latency, get_search_latency, \
     set_api_key, set_cx, get_api_key, get_cx, \
     set_verbose, get_verbose, \
-    set_data_home, get_data_home
+    set_data_home, get_data_home, \
+    set_lang, get_lang
+from util.message import EN, CHT
 
 
 class Config(object):
@@ -16,13 +18,18 @@ class Config(object):
     def __init__(self, config_file):
         import os
         if not os.path.exists(config_file):
-            print("設定檔\"%s\"不存在，程式即將結束" % config_file)
+            print("config file \"%s\" does not exist, program exits..." % config_file)
             import sys
             sys.exit()
         self.__config = ConfigParser()
         self.__config.read(config_file)
 
     def set_general_setting(self):
+        lang = get_lang() if not self.__config.has_option("reminder", "lang") else \
+            self.__config.get("reminder", "lang")
+        if type(lang) is str:
+            lang = EN if "EN" == lang else CHT if "CHT" == lang else None
+        assert lang is not None
         data_home = get_data_home() if not self.__config.has_option("reminder", "data_location") else \
             self.__config.get("reminder", "data_location")
         slideshow_frequency = get_slideshow_frequency() if not self.__config.has_option("image", "slideshow_frequency") else \
@@ -37,6 +44,7 @@ class Config(object):
             self.__config.get("search", "cx")
         verbose = get_verbose() if not self.__config.has_option("reminder", "verbose") else \
             "True" == self.__config.get("reminder", "verbose")
+        set_lang(lang)
         set_data_home(data_home)
         set_slideshow_frequency(slideshow_frequency)
         set_phrase_appear_ratio(phrase_appear_ratio)
