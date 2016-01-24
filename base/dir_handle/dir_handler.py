@@ -73,7 +73,7 @@ class GraphDirHandler(object):
             else:
                 info(get_msg(Msg.directory), self.__location, get_msg(Msg.has_changed_update_cache_file))
         else:
-            info("%s%s" %(get_msg(Msg.create_new_cache_file_for_directory), self.__location))
+            info("%s%s" % (get_msg(Msg.create_new_cache_file_for_directory), self.__location))
         image_files = []
         for file_ext in GraphDirHandler.RECOGNIZED_IMAGE_EXT:
             import glob
