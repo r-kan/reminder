@@ -12,7 +12,7 @@ P.S: for search function, `api_key` and `cx` of **google custom search** is requ
 # System Requirement
 python2.7
 
-# Installation:
+# Installation
 1. Install `tkinter`  
   **_linux_** apt-get install python-tk  
 2. Install `imageTk/PIL`  
@@ -22,7 +22,7 @@ python2.7
 
 PS: `requests` is also required to be installed if it does not already exist
 
-# Sample usage:  
+# Sample usage
 cd _reminder_target_directory_  
 1. python main.py config.ini  
 2. python main.py config_image.ini  
@@ -33,7 +33,7 @@ which demonstrate the following:
 2. show image by customized setting  
 3. embed image with phrases  
 
-# Hot keys:
+# Hot keys
 [Right]: next image  
 [Left]: previous image  
 [Esc]: switch fullscreen/window mode  
