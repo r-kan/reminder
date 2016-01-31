@@ -11,7 +11,7 @@ from util.network import reachable as network_reachable
 from util.serialize import save, load
 from util.select import RankHolder, get_weighted_random_dict_key
 
-TARGET_SEARCH_RESULT_SIZE = 60  # this in only our set one-time search size.
+TARGET_SEARCH_RESULT_SIZE = 60  # this is only our set one-time search size.
 G_SEARCH_PER_REQ_SIZE = 10  # use the maximum possible value google allowed in one request
 
 

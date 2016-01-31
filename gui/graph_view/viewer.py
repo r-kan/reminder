@@ -209,7 +209,10 @@ class GraphViewer(object):
             phrase_arbitrator.add_rank(phrase_obj.name, phrase_obj.rank)
         phrase_arbitrator.finalize_rank()
         chosen_phrase_obj = self.__cur_phrase_obj_dict[phrase_arbitrator.arbitrate()]
-        chosen_sentence = chosen_phrase_obj.select_sentence(pattern, self.__cur_image_obj_dict[pattern].group_name)
+        import os
+        base_file_name = os.path.basename(self.__cur_graph_file)
+        group_name = self.__cur_image_obj_dict[pattern].group_name
+        chosen_sentence = chosen_phrase_obj.select_sentence(pattern, group_name, base_file_name)
         if not chosen_sentence:
             self.__phrase_var.set("")
             return

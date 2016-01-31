@@ -21,10 +21,10 @@ class Sentence(object):
         assert var_name in self.__default_values, "need specify default value of \'%s\' in phrase" % var_name
         return self.__default_values[var_name]
 
-    def satisfy(self, pattern_name, pattern_group_name):
+    def satisfy(self, pattern_name, pattern_group_name, file_base_name):
         if not self.__restrict:
             return True
-        return self.__restrict in [pattern_name, pattern_group_name]
+        return self.__restrict in [pattern_name, pattern_group_name, file_base_name]
 
     def print(self):
         self.rank.print('\t\t')
@@ -60,12 +60,12 @@ class PhraseGroup(object):
         assert sentence in self.sentences
         return self.sentences[sentence].get_default_value(var_name)
 
-    def select_sentence(self, pattern, group_name):
+    def select_sentence(self, pattern, group_name, base_name):
         assert group_name in self.targets
         satisfied_sentences = []
         sentence_arbitrator = Arbitrator()
         for sentence in self.sentences:
-            if self.sentences[sentence].satisfy(pattern, group_name):
+            if self.sentences[sentence].satisfy(pattern, group_name, base_name):
                 satisfied_sentences.append(sentence)
                 sentence_arbitrator.add_rank(sentence, self.sentences[sentence].rank)
         sentence_arbitrator.finalize_rank()
