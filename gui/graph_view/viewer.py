@@ -358,7 +358,7 @@ class GraphViewer(object):
     def phrase_label(self):
         from util.color import get_random_color
         return Tkinter.Label(self.__root, textvariable=self.__phrase_var, bg=__BG__, fg=get_random_color(),
-                             anchor=Tkinter.SW, font=("system", 32))
+                             justify=Tkinter.LEFT, anchor=Tkinter.SW, font=("system", 32))
 
     @staticmethod
     def help_str():
