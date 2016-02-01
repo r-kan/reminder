@@ -245,11 +245,13 @@ class GraphViewer(object):
         return [resize_width, resize_height, x_pos, y_pos]
 
     @staticmethod
-    def get_image(graph_file):
-        # need convert to 'RGB' for some (transparent) format image cannot be shown using PhotoImage
-        # note: don't know why, but those image actually can be shown by Image
-        # itself (usg Image.show)
-        return Image.open(graph_file).convert("RGB")
+    def get_image(file_handle):
+        # Note:
+        #   1. need convert to 'RGB' for some (transparent) format image cannot be shown using PhotoImage
+        #      don't know why, but those image actually can be shown by Image itself (usg Image.show)
+        #   2. use file_handle instead of filename, for in Windows, Image.open() seems not close its
+        #      handle upon IOError, and thus, induces an unexpected file lock
+        return Image.open(file_handle).convert("RGB")
 
     def set_graph_content(self, graph_file, image=None):
         if image is None:
@@ -295,17 +297,19 @@ class GraphViewer(object):
         if NA == graph_file:
             return False
         show(graph_file)
-        try:
-            image = GraphViewer.get_image(graph_file)
-        except IOError as e:
-            # some image cannot be opened (maybe it's not image format?), err msg is 'cannot identify image file'
-            info(get_msg(Msg.fail_to_open_image), str(e))
-            GraphFetcher().handle_image(graph_file, DELETE)
-            return False
-        # we met "Decompressed Data Too Large" for ~/Inside Out/Image_124.jpg...
-        except ValueError as e:
-            info(get_msg(Msg.fail_to_open_image), str(e))
-            return False
+        with open(graph_file, 'rb') as f:
+            try:
+                image = GraphViewer.get_image(f)
+            except IOError as e:
+                f.close()  # close f here for we are going to delete the file below
+                # some image cannot be opened (maybe it's not image format?), err msg is 'cannot identify image file'
+                info(get_msg(Msg.fail_to_open_image), str(e))
+                GraphFetcher().handle_image(graph_file, DELETE)
+                return False
+            # we met "Decompressed Data Too Large" for ~/Inside Out/Image_124.jpg...
+            except ValueError as e:
+                info(get_msg(Msg.fail_to_open_image), str(e))
+                return False
         self.__cur_graph_file = graph_file
         self.__graph_history.append([self.__cur_image_obj, self.__cur_graph_file])
         self.__cur_digest = digest + "\n%s：%sx%s" % (get_msg(Msg.size), image.size[0], image.size[1])
