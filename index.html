@@ -29,7 +29,7 @@
     <div class="container">
       <section id="main_content">
         <h3>
-<a id="introduction--介紹" class="anchor" href="#introduction--%E4%BB%8B%E7%B4%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction | 介紹</h3>
+<a id="introduction--介紹" class="anchor" href="#introduction--%E4%BB%8B%E7%B4%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction | 介紹</h3>
 
 <p>Reminder, beyond an image slideshow tool, has the following unique features:<br>
 Reminder不僅僅是一個影像幻燈片播放工具，它具有下列獨特的功能：</p>
@@ -45,30 +45,36 @@ for search function, <code>api_key</code> and <code>cx</code> of <strong>google 
 搜尋功能需要指定可以從<strong>google custom search</strong>取得的<code>api_key</code>及<code>cx</code></p>
 
 <h3>
-<a id="system-requirement--系統需求" class="anchor" href="#system-requirement--%E7%B3%BB%E7%B5%B1%E9%9C%80%E6%B1%82" aria-hidden="true"><span class="octicon octicon-link"></span></a>System requirement | 系統需求</h3>
+<a id="system-requirement--系統需求" class="anchor" href="#system-requirement--%E7%B3%BB%E7%B5%B1%E9%9C%80%E6%B1%82" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>System requirement | 系統需求</h3>
 
 <p>python2.7</p>
 
 <h3>
-<a id="installation--安裝" class="anchor" href="#installation--%E5%AE%89%E8%A3%9D" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation | 安裝</h3>
+<a id="dependent-libraries--相依函式庫" class="anchor" href="#dependent-libraries--%E7%9B%B8%E4%BE%9D%E5%87%BD%E5%BC%8F%E5%BA%AB" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependent Libraries | 相依函式庫</h3>
 
-<ol>
-<li><p>Install <code>tkinter</code> | 安裝<code>tkinter</code><br>
-<strong><em>linux</em></strong>  apt-get install python-tk </p></li>
-<li><p>Install <code>imageTk/PIL</code> | 安裝 <code>imageTk/PIL</code><br>
-<strong><em>windows</em></strong> pip install pillow-<em>version-num</em>.whl<br>
-<em><strong>linux</strong></em>  apt-get install python-imaging-tk<br>
-<em><strong>osx</strong></em>  pip install Pillow</p></li>
-<li><p>Download and extract the source and copy it into the desired directory.<br>
-And have fun!<br>
-下載原始程式檔案，解開壓縮，並且複製到您想安裝的目的資料夾。<br>
-然後開始享受它帶來的樂趣吧！</p></li>
-</ol>
+<p><strong>Windows</strong><br>
+1. make sure Tcl/Tk is installed in your python environment<br>
+2. pip install <code>pillow-_version-num_.whl</code> (e.g., <code>Pillow-2.7.0-cp27-none-win_amd64.whl</code>)<br>
+(find all pillow libraries at <a href="https://pypi.python.org/pypi/Pillow/2.7.0">https://pypi.python.org/pypi/Pillow/2.7.0</a>)<br>
+3. pip install <code>requests</code>  </p>
 
-<p>PS: <code>requests</code> is also required to be installed if it does not already exist | <code>requests</code>可能需要另外安裝  </p>
+<p><strong>Linux</strong><br>
+1. apt-get install <code>python-tk</code><br>
+2. apt-get install <code>python-imaging-tk</code>  </p>
+
+<p><strong>OSX</strong><br>
+1. pip install <code>Pillow</code></p>
 
 <h3>
-<a id="demo-usage--示範用法" class="anchor" href="#demo-usage--%E7%A4%BA%E7%AF%84%E7%94%A8%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo usage | 示範用法</h3>
+<a id="installation--安裝" class="anchor" href="#installation--%E5%AE%89%E8%A3%9D" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation | 安裝</h3>
+
+<p>Download and extract the source and copy it into the desired directory.<br>
+And have fun!<br>
+下載原始程式檔案，解開壓縮，並且複製到您想安裝的目的資料夾。<br>
+然後開始享受它帶來的樂趣吧！</p>
+
+<h3>
+<a id="demo-usage--示範用法" class="anchor" href="#demo-usage--%E7%A4%BA%E7%AF%84%E7%94%A8%E6%B3%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo usage | 示範用法</h3>
 
 <p>cd <em>reminder_target_directory</em><br>
 1. python main.py <em>config.ini</em><br>
@@ -87,7 +93,7 @@ And have fun!<br>
 </ol>
 
 <h3>
-<a id="hot-keys--熱鍵" class="anchor" href="#hot-keys--%E7%86%B1%E9%8D%B5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hot keys | 熱鍵</h3>
+<a id="hot-keys--熱鍵" class="anchor" href="#hot-keys--%E7%86%B1%E9%8D%B5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hot keys | 熱鍵</h3>
 
 <p>[Right]: next image | 下一張影像<br>
 [Left]: previous image | 上一張影像<br>
@@ -96,7 +102,7 @@ And have fun!<br>
 [q]: exit application | 結束程式</p>
 
 <h3>
-<a id="screenshot--畫面截圖" class="anchor" href="#screenshot--%E7%95%AB%E9%9D%A2%E6%88%AA%E5%9C%96" aria-hidden="true"><span class="octicon octicon-link"></span></a>Screenshot | 畫面截圖</h3>
+<a id="screenshot--畫面截圖" class="anchor" href="#screenshot--%E7%95%AB%E9%9D%A2%E6%88%AA%E5%9C%96" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshot | 畫面截圖</h3>
 
 <p>Use Reminder as a reminder,<br>
 讓Reminder提醒您重要事項，<br>
@@ -111,7 +117,7 @@ And have fun!<br>
 <a href="https://raw.githubusercontent.com/r-kan/r-kan.github.io/master/images/Reminder_multi_instances.jpg" target="_blank"><img border="0" alt="Sparkle your desktop by Reminders" src="https://raw.githubusercontent.com/r-kan/r-kan.github.io/master/images/Reminder_multi_instances.jpg" width="492" height="255"></a></p>
 
 <h3>
-<a id="motivation--動機" class="anchor" href="#motivation--%E5%8B%95%E6%A9%9F" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivation | 動機</h3>
+<a id="motivation--動機" class="anchor" href="#motivation--%E5%8B%95%E6%A9%9F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Motivation | 動機</h3>
 
 <p>We are creatures who can be mind-occupied by image and phrases.<br>
 Hopefully, Reminder helps you determine how your precious memory space will be occupied.<br>
@@ -119,7 +125,7 @@ Hopefully, Reminder helps you determine how your precious memory space will be o
 但願Reminder能夠幫助我們自行決定珍貴的思維空間，要如何被填滿。</p>
 
 <h3>
-<a id="reference--參考資料" class="anchor" href="#reference--%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reference | 參考資料</h3>
+<a id="reference--參考資料" class="anchor" href="#reference--%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reference | 參考資料</h3>
 
 <p><a href="https://developers.google.com/custom-search/" target="_blank">Google Custom Search</a><br>
 <a href="https://github.com/Netflix/Scumblr/wiki/Google-Search-Provider-Configuration" target="_blank">Google Search Provider Configuration</a><br>
@@ -127,7 +133,7 @@ Hopefully, Reminder helps you determine how your precious memory space will be o
 <a href="https://cse.google.com/cse/manage/all" target="_blank">cx</a>  </p>
 
 <h3>
-<a id="contact--聯絡" class="anchor" href="#contact--%E8%81%AF%E7%B5%A1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact | 聯絡</h3>
+<a id="contact--聯絡" class="anchor" href="#contact--%E8%81%AF%E7%B5%A1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact | 聯絡</h3>
 
 <p>Please contact <em>rkan</em> by <a href="mailto:its_right@msn.com">its_right@msn.com</a> for any question/request/bug without hesitation.<br>
 使用上遇到任何問題，請不吝聯繫rkan:<a href="mailto:its_right@msn.com">its_right@msn.com</a>，會盡快給您答覆。</p>
