@@ -12,7 +12,7 @@ P.S: for search function, `api_key` and `cx` of **google custom search** is requ
 # System Requirement
 python2.7
 
-# Installation
+# Dependent Libraries
 **Windows**  
 1. make sure Tcl/Tk is installed in your python environment  
 2. pip install `pillow-_version-num_.whl` (e.g., `Pillow-2.7.0-cp27-none-win_amd64.whl`)  
