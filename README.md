@@ -13,14 +13,16 @@ P.S: for search function, `api_key` and `cx` of **google custom search** is requ
 python2.7
 
 # Installation
-1. Install `tkinter`  
-  **_linux_** apt-get install python-tk  
-2. Install `imageTk/PIL`  
-  **_windows_** pip install pillow-_version-num_.whl  
-  **_linux_** apt-get install python-imaging-tk  
-  **_osx_** pip install Pillow  
-
-PS: `requests` is also required to be installed if it does not already exist
+[Windows]  
+1. make sure Tcl/Tk is installed in your python environment  
+2. pip install `pillow-_version-num_.whl` (e.g., `Pillow-2.7.0-cp27-none-win_amd64.whl`)  
+(find all pillow libraries at https://pypi.python.org/pypi/Pillow/2.7.0)  
+3. pip install `requests`  
+[Linux]  
+1. apt-get install `python-tk`  
+2. apt-get install `python-imaging-tk`  
+[OSX]  
+1. pip install `Pillow` 
 
 # Sample usage
 cd _reminder_target_directory_  
