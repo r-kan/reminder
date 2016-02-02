@@ -176,6 +176,7 @@ class GraphFetcher(object):
             info(get_msg(Msg.failed_url), url)
             info(get_msg(Msg.error_message), str(e))
             if os.path.exists(abs_graph_file):
+                fd.close()
                 os.remove(abs_graph_file)
             return NA, NA
 
