@@ -4,6 +4,12 @@
 from __future__ import print_function, unicode_literals
 
 
+def is_osx():
+    import platform
+    system_name = platform.system()
+    return "Darwin" in system_name
+
+
 EN = 1
 CHT = 2
 
@@ -118,9 +124,10 @@ class Msg(object):
       EN: "has changed, update cache file",
       CHT: "已改變，更新快取檔案"
     }
+    delete_button = "delete" if is_osx() else "backspace"
     help_message = {
-      EN: "[esc]switch fullscreen, [delete]remove image, [h]help, [i]info, [->]next, [<-]prev, [q]quit",
-      CHT: "[esc]切換全畫面, [delete]刪除圖片, [h]求助, [i]訊息, [->]下一張, [<-]上一張, [q]離開"
+      EN: "[esc]switch fullscreen, [" + delete_button + "]remove image, [h]help, [i]info, [->]next, [<-]prev, [q]quit",
+      CHT: "[esc]切換全畫面, [" + delete_button + "]刪除圖片, [h]求助, [i]訊息, [->]下一張, [<-]上一張, [q]離開"
     }
     hour = {
       EN: "hour(s)",
