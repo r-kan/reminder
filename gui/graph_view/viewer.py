@@ -13,7 +13,7 @@ from base.graph_fetch.fetcher import ImageSlot  # to let pickle can recognize Im
 from base.dir_handle.dir_handler import GraphDirHandler
 from base.setting.utility import RankArbitrator as Arbitrator
 from base.setting.image import Image as ImageObj
-from util.global_def import show, info, error, get_msg
+from util.global_def import show, info, error, get_msg, is_windows
 from util.global_def import NA, get_slideshow_frequency, get_phrase_appear_ratio
 from util.message import Msg
 
@@ -136,7 +136,8 @@ class GraphViewer(object):
         if not self.__onscreen_info:
             return
         self.__info = self.info_label()
-        self.__info.place(x=10, y=30)
+        y_offset = 5 if is_windows() else 0  # an ugly fix but to make all windows/linux/osx onscreen widgets prettier
+        self.__info.place(x=10, y=30 + y_offset)
 
     def show_onscreen_phrase(self):
         self.__phrase.destroy()

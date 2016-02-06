@@ -17,6 +17,12 @@ def get_delim():
         return "\\"
     return "/"  # default treats it an unix-like system
 
+
+def is_windows():
+    import platform
+    system_name = platform.system()
+    return "Windows" in system_name
+
 NA = -1
 __DATA_HOME = (os.environ['HOME'] if 'HOME' in os.environ else '') + get_delim() + 'reminder' + get_delim()
 __SLIDESHOW_FREQUENCY = 30  # the frequency in second to have slideshow
