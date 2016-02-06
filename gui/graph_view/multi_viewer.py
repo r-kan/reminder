@@ -12,7 +12,7 @@ def get_setting(setting_file):
         return get_list_setting(setting_file)
     elif ".json" in setting_file:
         return get_json_setting(setting_file)
-    assert False
+    assert False, "Unrecognized file format: " + setting_file
 
 
 def get_list_setting(list_file):
