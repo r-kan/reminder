@@ -302,7 +302,7 @@ class GraphViewer(object):
         if digest:
             digest_str = digest + "\n"
         else:
-            digest_str = "path：%s\n" % graph_file
+            digest_str = "%s：%s\n" % (get_msg(Msg.path), graph_file)
         self.__cur_digest = digest_str + "%s：%sx%s" % (get_msg(Msg.size), image.size[0], image.size[1])
         self.select_phrase(image_obj.pattern)
         return self.set_graph_content(graph_file, image)

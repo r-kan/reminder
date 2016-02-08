@@ -126,8 +126,8 @@ class Msg(object):
     }
     delete_button = "delete" if is_osx() else "backspace"
     help_message = {
-      EN: "[esc]switch fullscreen, [" + delete_button + "]remove image, [h]help, [i]info, [->]next, [<-]prev, [q]quit",
-      CHT: "[esc]切換全畫面, [" + delete_button + "]刪除圖片, [h]求助, [i]訊息, [->]下一張, [<-]上一張, [q]離開"
+      EN: "[esc]switch fullscreen [" + delete_button + "]remove image [h]help [i]info [->]next [<-]prev [q]quit",
+      CHT: "[esc]切換全畫面 [" + delete_button + "]刪除圖片 [h]求助 [i]訊息 [->]下一張 [<-]上一張 [q]離開"
     }
     hour = {
       EN: "hour(s)",
@@ -172,6 +172,10 @@ class Msg(object):
     obtain_unrecognized_status_code = {
       EN: "obtain unrecognized status code:",
       CHT: "獲得無法辨識的狀態碼："
+    }
+    path = {
+      EN: "path",
+      CHT: "路徑"
     }
     rank = {
       EN: "rank",
