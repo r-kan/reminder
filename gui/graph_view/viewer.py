@@ -13,7 +13,7 @@ from base.graph_fetch.fetcher import ImageSlot  # to let pickle can recognize Im
 from base.dir_handle.dir_handler import GraphDirHandler
 from base.setting.utility import RankArbitrator as Arbitrator
 from base.setting.image import Image as ImageObj
-from util.global_def import show, info, error, get_msg, is_windows
+from util.global_def import show, info, error, get_msg
 from util.global_def import NA, get_slideshow_frequency, get_phrase_appear_ratio
 from util.message import Msg
 
@@ -62,10 +62,12 @@ class GraphViewer(object):
         self.__graph_history = deque(maxlen=GraphViewer.IMAGE_HISTORY_SIZE)
         self.__cur_digest = ""
         self.__arbitrator = None
-        self.__help = self.help_label()
-        self.__info = self.info_label()
+        self.__canvas = Tkinter.Canvas(self.__root, bg=__BG__, bd=0, highlightthickness=0)
+        self.__canvas.pack(expand=Tkinter.YES, fill=Tkinter.BOTH)
+        self.__help = self.help_text()
+        self.__info = self.info_text()
         self.__phrase_var = Tkinter.StringVar()
-        self.__phrase = self.phrase_label()
+        self.__phrase = self.phrase_text()
 
     def get_full_geom(self):
         w, h = self.__root.winfo_screenwidth(), self.__root.winfo_screenheight()
@@ -120,37 +122,26 @@ class GraphViewer(object):
         self.__onscreen_info = not self.__onscreen_info
         self.show_onscreen_info()
 
-    # TODO: for the following show_onscreen_XXX,
-    # it may not be a very good way to re-create label? better to call some api make it top-most again?
-    # some search indicates that use Canvas can be solution, it also has pros.
-    # that it's easier to manipulate (position, etc)
+    # TODO:
+    # for the following show_onscreen_XXX, it may not be a very good way to re-create canvas text?
+    # better to call some api make it top-most again?
     def show_onscreen_help(self):
-        self.__help.destroy()
+        self.__canvas.delete(self.__help)
         if not self.__onscreen_help:
             return
-        self.__help = self.help_label()
-        self.__help.place(x=10, y=10)
+        self.__help = self.help_text()
 
     def show_onscreen_info(self):
-        self.__info.destroy()
+        self.__canvas.delete(self.__info)
         if not self.__onscreen_info:
             return
-        self.__info = self.info_label()
-        y_offset = 5 if is_windows() else 0  # an ugly fix but to make all windows/linux/osx onscreen widgets prettier
-        self.__info.place(x=10, y=30 + y_offset)
+        self.__info = self.info_text()
 
     def show_onscreen_phrase(self):
-        self.__phrase.destroy()
+        self.__canvas.delete(self.__phrase)
         if "" == self.__phrase_var.get():
             return
-        self.__phrase = self.phrase_label()
-        # TODO: not a good way to have such fixed values (maybe Canvas has some way to do...)
-        smallest_y = 120
-        largest_y = 700
-        smallest_x = 10
-        largest_x = 300
-        self.__phrase.place(x=random.randrange(smallest_x, largest_x),
-                            y=random.randrange(smallest_y, largest_y))
+        self.__phrase = self.phrase_text()
 
     def prepare_for_next_view(self, wait_time, msg=None):
         if msg:
@@ -228,7 +219,7 @@ class GraphViewer(object):
         self.prepare_for_next_view(get_slideshow_frequency() * 1000)
 
     def get_adjusted_geom(self, width, height):
-        """output: [resize_width, resize_height, x_pos, y_pos]"""
+        """output: resize_width, resize_height, x_pos, y_pos"""
         self.__root.geometry(self.__full_geom)  # self.__root.geometry(self.get_full_geom())
         x_root = self.__root.winfo_rootx()
         y_root = self.__root.winfo_rooty()
@@ -243,7 +234,7 @@ class GraphViewer(object):
         resize_height = int(expand_ratio * height)
         x_pos = (full_width - resize_width) / 2
         y_pos = (full_height - resize_height) / 2
-        return [resize_width, resize_height, x_pos, y_pos]
+        return resize_width, resize_height, x_pos, y_pos
 
     @staticmethod
     def get_image(file_handle):
@@ -264,7 +255,7 @@ class GraphViewer(object):
         self.__root.geometry(self.__full_geom if self.__fullscreen_mode else
                              '%dx%d+0+0' % (image.size[0], image.size[1]))
         if self.__fullscreen_mode:
-            [resize_width, resize_height, x_pos, y_pos] = self.get_adjusted_geom(image.size[0], image.size[1])
+            resize_width, resize_height, x_pos, y_pos = self.get_adjusted_geom(image.size[0], image.size[1])
             try:
                 resized = image.resize((resize_width, resize_height), Image.ANTIALIAS)
             except IOError as e:
@@ -273,17 +264,12 @@ class GraphViewer(object):
                 GraphFetcher().handle_image(graph_file, DISCARD)
                 return False
             image = resized
+        self.__root.title(self.__cur_image_obj.group_name)
         tk_image_obj = ImageTk.PhotoImage(image)
         self.__tk_obj_ref = tk_image_obj
-        label_image = Tkinter.Label(self.__root, image=tk_image_obj)
-        # noinspection PyUnboundLocalVariable
-        label_image.place(x=x_pos if self.__fullscreen_mode else 0,
-                          y=y_pos if self.__fullscreen_mode else 0,
-                          width=image.size[0], height=image.size[1])
-        # self.__root.title(pattern_str)
-        if self.__old_label_image:
-            self.__old_label_image.destroy()
-        self.__old_label_image = label_image
+        self.__canvas.delete('all')
+        self.__canvas.create_image(x_pos if self.__fullscreen_mode else 0, y_pos if self.__fullscreen_mode else 0,
+                                   image=tk_image_obj, anchor=Tkinter.NW)
         self.show_onscreen_help()
         self.show_onscreen_info()
         self.show_onscreen_phrase()
@@ -291,7 +277,7 @@ class GraphViewer(object):
 
     def set_graph(self, image_obj, graph_file=NA):
         self.__cur_image_obj = image_obj
-        digest = ""
+        digest = None
         if NA == graph_file:
             graph_file, digest = GraphDirHandler(image_obj.location).get_graph() if image_obj.location else \
                                  GraphFetcher(size=image_obj.size, option=image_obj.option).fetch(image_obj.pattern)
@@ -313,7 +299,11 @@ class GraphViewer(object):
                 return False
         self.__cur_graph_file = graph_file
         self.__graph_history.append([self.__cur_image_obj, self.__cur_graph_file])
-        self.__cur_digest = digest + "\n%s：%sx%s" % (get_msg(Msg.size), image.size[0], image.size[1])
+        if digest:
+            digest_str = digest + "\n"
+        else:
+            digest_str = "path：%s\n" % graph_file
+        self.__cur_digest = digest_str + "%s：%sx%s" % (get_msg(Msg.size), image.size[0], image.size[1])
         self.select_phrase(image_obj.pattern)
         return self.set_graph_content(graph_file, image)
 
@@ -354,16 +344,27 @@ class GraphViewer(object):
             self.__root.mainloop()
             self.cancel_pending_jobs()
 
-    def help_label(self):
-        return Tkinter.Label(self.__root, text=GraphViewer.help_str(), bg=__BG__, fg="red")
+    def help_text(self):
+        return self.__canvas.create_text(0, 0, anchor=Tkinter.NW, font=("system", 15),
+                                         text=GraphViewer.help_str(), fill="red")
 
-    def info_label(self):
-        return Tkinter.Label(self.__root, text=self.__cur_digest, bg=__BG__, fg="blue", justify=Tkinter.LEFT)
+    def info_text(self):
+        return self.__canvas.create_text(0, 20, anchor=Tkinter.NW, font=("system", 15),
+                                         text=self.__cur_digest, fill="blue")
 
-    def phrase_label(self):
+    def phrase_text(self):
+        # TODO: not a good way to have such fixed values
+        smallest_y = 120
+        largest_y = 700
+        smallest_x = 10
+        largest_x = 300
         from util.color import get_random_color
-        return Tkinter.Label(self.__root, textvariable=self.__phrase_var, bg=__BG__, fg=get_random_color(),
-                             justify=Tkinter.LEFT, anchor=Tkinter.SW, font=("system", 32))
+        return self.__canvas.create_text(random.randrange(smallest_x, largest_x),
+                                         random.randrange(smallest_y, largest_y),
+                                         anchor=Tkinter.SW, font=("system", 32),
+                                         text=self.__phrase_var.get(),
+                                         fill=get_random_color(),
+                                         activefill=get_random_color())
 
     @staticmethod
     def help_str():
