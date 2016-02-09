@@ -14,20 +14,16 @@ python2.7
 
 # Dependent Libraries
 **Windows**  
-1. make sure Tcl/Tk is installed in your python environment  
-2. pip install `pillow-_version-num_.whl` (e.g., `Pillow-2.7.0-cp27-none-win_amd64.whl`)  
-(find all pillow libraries at https://pypi.python.org/pypi/Pillow/2.7.0)  
-3. pip install `requests`  
+make sure Tcl/Tk is installed in your python environment  
 
 **Linux**  
 1. apt-get install `python-tk`  
 2. apt-get install `python-imaging-tk`  
 
-**OSX**  
-1. pip install `Pillow` 
+# Installation
+python setup.py install  
 
 # Sample usage
-cd _reminder_target_directory_  
 1. python main.py config.ini  
 2. python main.py config_image.ini  
 3. python main.py config_phrase.ini  
