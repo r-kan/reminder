@@ -13,7 +13,7 @@ P.S: for search function, `api_key` and `cx` of **google custom search** is requ
 python2.7
 
 # Dependent Libraries
-**Windows**  
+**Windows/OSX**  
 make sure Tcl/Tk is installed in your python environment  
 
 **Linux**  
