@@ -27,6 +27,9 @@ class Crawler(object):
         is_exist, url_map = load(self.__cache_file)
         if is_exist:
             self.__url_map = url_map
+            # uncomment the following if you occasionally want to remove some pattern from url.pickle
+            # self.__url_map.pop("pattern to remove", None)
+            # self.__has_write = True
 
     def __del__(self):
         if self.__need_save and self.__has_write:
