@@ -164,6 +164,9 @@ class Crawler(object):
         except TypeError as e:  # for unhandled error...
             info(get_msg(Msg.cannot_fetch_image_url), str(e))
             success = False
+        except requests.ConnectionError as e:
+            info(get_msg(Msg.cannot_fetch_image_url), str(e))
+            success = False
         return urls, success
 
     @staticmethod
