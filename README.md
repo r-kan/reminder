@@ -23,7 +23,7 @@ make sure Tcl/Tk is installed in your python environment
 # Installation
 python setup.py install  
 
-# Sample usage
+# Sample Usage
 1. python main.py config.ini  
 2. python main.py config_image.ini  
 3. python main.py config_phrase.ini  
