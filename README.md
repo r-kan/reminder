@@ -24,9 +24,9 @@ make sure Tcl/Tk is installed in your python environment
 python setup.py install  
 
 # Sample Usage
-1. python main.py config.ini  
-2. python main.py config_image.ini  
-3. python main.py config_phrase.ini  
+1. python main.py _config.ini_  
+2. python main.py _config_image.ini_  
+3. python main.py _config_phrase.ini_  
 
 which demonstrate the following:  
 1. image search/download/slideshow functionality  
