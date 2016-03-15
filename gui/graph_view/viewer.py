@@ -13,6 +13,7 @@ from base.graph_fetch.fetcher import ImageSlot  # to let pickle can recognize Im
 from base.dir_handle.dir_handler import GraphDirHandler
 from base.setting.utility import RankArbitrator as Arbitrator
 from base.setting.image import Image as ImageObj
+from util.color import get_random_color
 from util.global_def import show, info, error, get_msg
 from util.global_def import NA, get_slideshow_frequency, get_phrase_appear_ratio
 from util.message import Msg
@@ -346,11 +347,11 @@ class GraphViewer(object):
 
     def help_text(self):
         return self.__canvas.create_text(0, 0, anchor=Tkinter.NW, font=("system", 15),
-                                         text=GraphViewer.help_str(), fill="red")
+                                         text=GraphViewer.help_str(), fill="red", activefill=get_random_color())
 
     def info_text(self):
         return self.__canvas.create_text(0, 20, anchor=Tkinter.NW, font=("system", 15),
-                                         text=self.__cur_digest, fill="blue")
+                                         text=self.__cur_digest, fill="blue", activefill=get_random_color())
 
     def phrase_text(self):
         # TODO: not a good way to have such fixed values
@@ -358,7 +359,6 @@ class GraphViewer(object):
         largest_y = 700
         smallest_x = 10
         largest_x = 300
-        from util.color import get_random_color
         return self.__canvas.create_text(random.randrange(smallest_x, largest_x),
                                          random.randrange(smallest_y, largest_y),
                                          anchor=Tkinter.SW, font=("system", 32),
