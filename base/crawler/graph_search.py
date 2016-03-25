@@ -24,6 +24,7 @@ class Crawler(object):
         self.__has_write = False
         self.__url_map = {}
         self.__cache_file = get_data_home() + "url.pickle"
+        self.__updated_key_value = None, None
         is_exist, url_map = load(self.__cache_file)
         if is_exist:
             self.__url_map = url_map
@@ -33,7 +34,13 @@ class Crawler(object):
 
     def __del__(self):
         if self.__need_save and self.__has_write:
-            save(self.__cache_file, self.__url_map)
+            is_exist, url_map = load(self.__cache_file)
+            assert is_exist
+            key, updated_value = self.__updated_key_value
+            assert key and updated_value
+            url_map[key] = updated_value
+            # TODO: better use file lock (fcntl) to avoid file update error in mul-instances usage
+            save(self.__cache_file, url_map)
 
     @staticmethod
     def get_dice(size_list, size_ratio):
@@ -106,7 +113,7 @@ class Crawler(object):
         valid_day_size *= get_search_latency()
         current_date = datetime.today()
         date_diff = current_date - retrieved_date
-        if self.__network_reachable and date_diff > timedelta(days=valid_day_size):  # valid_day_size天為查詢結果的“有效期”
+        if date_diff > timedelta(days=valid_day_size):  # 'valid_day_size' is the valid duration of search result
             return None, size_ratio
         to_next_query = timedelta(days=valid_day_size) - date_diff
         hours, remainder = divmod(to_next_query.seconds, 3600)
@@ -131,7 +138,8 @@ class Crawler(object):
 
     def cache_url(self, key, urls, next_size_ratio):
         self.__has_write = True
-        self.__url_map[key] = [datetime.today(), self.get_this_time_new_result_num(key, urls), urls, next_size_ratio]
+        updated_value = [datetime.today(), self.get_this_time_new_result_num(key, urls), urls, next_size_ratio]
+        self.__updated_key_value = key, updated_value
 
     @staticmethod
     def crawl_by_asking_google_search(pattern, start, size, option=""):
