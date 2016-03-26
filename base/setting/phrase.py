@@ -32,11 +32,11 @@ class Sentence(object):
             print('\t\t', self.__restrict)
 
     @staticmethod
-    def create(data):
+    def create(data, global_restrict=None):
         assert isinstance(data, dict)
         rank = Rank.create(
             data["rank"]) if "rank" in data else Rank.create_default()
-        restrict = str(data["restrict"]) if "restrict" in data else None
+        restrict = str(data["restrict"]) if "restrict" in data else global_restrict
         default_values = {}
         if "default_value" in data:
             raw_data = data["default_value"]
@@ -98,6 +98,14 @@ class PhraseGroup(object):
             assert isinstance(raw_data, dict)
             for sentence in raw_data:
                 sentences[sentence] = Sentence.create(raw_data[sentence])
+        if "restrict" in data:
+            raw_data = data["restrict"]
+            assert isinstance(raw_data, dict)
+            for restrict in raw_data:
+                sentence_data = raw_data[restrict]
+                assert isinstance(sentence_data, dict)
+                for sentence in sentence_data:
+                    sentences[sentence] = Sentence.create(sentence_data[sentence], restrict)
         return PhraseGroup(name, targets, sentences, rank)
 
 
