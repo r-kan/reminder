@@ -40,7 +40,7 @@ which demonstrate the following:
 [q]: exit application
 
 # Contact
-Please contact *rkan* by its_right@msn.com for any question/request/bug without hesitation.  
+Please contact <a href='http://r-kan.github.io'>*rkan*</a> by its_right@msn.com for any question/request/bug without hesitation.  
 
 ***
 Watch screenshots and more information at http://r-kan.github.io/reminder/!
