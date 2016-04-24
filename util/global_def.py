@@ -26,6 +26,16 @@ __SEARCH_LATENCY = 1
 __LANG = EN
 __API_KEY = ''
 __CX = ''
+__FULLSCREEN_MODE2 = False
+
+
+def set_fullscreen_mode2(fullscreen_mode2):
+    global __FULLSCREEN_MODE2
+    __FULLSCREEN_MODE2 = fullscreen_mode2
+
+
+def get_fullscreen_mode2():
+    return __FULLSCREEN_MODE2
 
 
 def set_lang(lang):

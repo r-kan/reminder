@@ -15,7 +15,7 @@ from base.setting.utility import RankArbitrator as Arbitrator
 from base.setting.image import Image as ImageObj
 from util.color import get_random_color
 from util.global_def import show, info, error, get_msg
-from util.global_def import NA, get_slideshow_frequency, get_phrase_appear_ratio
+from util.global_def import NA, get_slideshow_frequency, get_phrase_appear_ratio, get_fullscreen_mode2
 from util.message import Msg
 
 __BG__ = 'black'
@@ -42,7 +42,8 @@ class GraphViewer(object):
         self.__onscreen_help = False
         self.__onscreen_info = False
         self.__fullscreen_mode = True
-        # self.__root.overrideredirect(self.__fullscreen_mode) # do this b4 ...'-fullscreen'
+        if get_fullscreen_mode2():
+            self.__root.overrideredirect(self.__fullscreen_mode)  # do this b4 ...'-fullscreen'
         self.__root.attributes("-fullscreen", self.__fullscreen_mode)
         self.__root.bind("<Escape>", self.toggle_display_mode)
         self.__root.bind("<BackSpace>", self.delete_image)
@@ -77,7 +78,8 @@ class GraphViewer(object):
     def toggle_display_mode(self, *unused):
         self.__fullscreen_mode = not self.__fullscreen_mode
         self.__root.attributes("-fullscreen", self.__fullscreen_mode)
-        # self.__root.overrideredirect(self.__fullscreen_mode)
+        if get_fullscreen_mode2():
+            self.__root.overrideredirect(self.__fullscreen_mode)
         self.set_graph_content(self.__cur_graph_file)
 
     def delete_image(self, *unused):

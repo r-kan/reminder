@@ -30,7 +30,7 @@ class Crawler(object):
             self.__url_map = url_map
             # uncomment the following if you occasionally want to remove some pattern from url.pickle
             # self.__url_map.pop("pattern to remove", None)
-            # self.__has_write = True
+            # save(self.__cache_file, self.__url_map)
 
     def __del__(self):
         if self.__need_save and self.__has_write:

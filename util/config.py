@@ -9,7 +9,8 @@ from util.global_def import set_phrase_appear_ratio, get_phrase_appear_ratio, \
     set_api_key, set_cx, get_api_key, get_cx, \
     set_verbose, get_verbose, \
     set_data_home, get_data_home, \
-    set_lang, get_lang
+    set_lang, get_lang, \
+    set_fullscreen_mode2, get_fullscreen_mode2
 from util.message import EN, CHT
 
 
@@ -42,6 +43,8 @@ class Config(object):
             self.__config.get("search", "api_key")
         cx = get_cx() if not self.__config.has_option("search", "cx") else \
             self.__config.get("search", "cx")
+        fullscreen_mode2 = get_fullscreen_mode2() if not self.__config.has_option("reminder", "fullscreen_mode2") else \
+            "True" == self.__config.get("reminder", "fullscreen_mode2")
         verbose = get_verbose() if not self.__config.has_option("reminder", "verbose") else \
             "True" == self.__config.get("reminder", "verbose")
         set_lang(lang)
@@ -51,6 +54,7 @@ class Config(object):
         set_search_latency(search_latency)
         set_api_key(api_key)
         set_cx(cx)
+        set_fullscreen_mode2(fullscreen_mode2)
         set_verbose(verbose)
         print("=======  reminder setting  =============")
         print("data home:       ", data_home)

@@ -58,7 +58,7 @@ class PhraseGroup(object):
         self.rank = rank
 
     def get_default_value(self, sentence, var_name):
-        assert sentence in self.sentences
+        assert sentence in self.sentences, "%s, %s" % (sentence, var_name)
         return self.sentences[sentence].get_default_value(var_name)
 
     def select_sentence(self, pattern, group_name, base_name):
