@@ -165,6 +165,9 @@ class Crawler(object):
             if "error" in res:
                 Crawler.print_error(res["error"])
                 return urls, False
+            if 'items' not in res:
+                info(get_msg(Msg.cannot_fetch_image_url), "empty query")
+                return urls, True  # return 'True' is okay?
             for image_info in res['items']:
                 assert 'link' in image_info
                 url = image_info['link']
