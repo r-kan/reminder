@@ -17,6 +17,7 @@ G_SEARCH_PER_REQ_SIZE = 10  # use the maximum possible value google allowed in o
 
 class Crawler(object):
     """crawl graph url by querying google search api"""
+    __STOP_SEARCH = False
 
     def __init__(self, need_save=True):
         self.__need_save = need_save
@@ -98,7 +99,7 @@ class Crawler(object):
         if key not in self.__url_map:
             return None, None
         [retrieved_date, new_result, urls, size_ratio] = self.__url_map[key]
-        if not self.__network_reachable:
+        if not self.__network_reachable or Crawler.__STOP_SEARCH:
             show(get_msg(Msg.use_previous_search_result))
             # though size_ratio can be valid, we do not return it for caller usage is not expected
             return urls, None
@@ -164,6 +165,8 @@ class Crawler(object):
             res = json.loads(r.text)
             if "error" in res:
                 Crawler.print_error(res["error"])
+                if "Daily Limit Exceeded" in res["error"]["message"]:
+                    Crawler.__STOP_SEARCH = True
                 return urls, False
             if 'items' not in res:
                 info(get_msg(Msg.cannot_fetch_image_url), "empty query")
