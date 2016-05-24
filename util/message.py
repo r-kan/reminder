@@ -126,8 +126,8 @@ class Msg(object):
     }
     delete_button = "delete" if is_osx() else "backspace"
     help_message = {
-      EN: "[esc]switch fullscreen [" + delete_button + "]remove image [h]help [i]info [->]next [<-]prev [q]quit",
-      CHT: "[esc]切換全畫面 [" + delete_button + "]刪除圖片 [h]求助 [i]訊息 [->]下一張 [<-]上一張 [q]離開"
+      EN: "esc:switch fullscreen|" + delete_button + ":remove image|h:help|i:info|->:next|<-:prev|p:pause|q:quit",
+      CHT: "[esc]切換全畫面 [" + delete_button + "]刪除圖片 [h]求助 [i]訊息 [->]下一張 [<-]上一張 [p]暫停 [q]離開"
     }
     hour = {
       EN: "hour(s)",

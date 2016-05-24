@@ -41,6 +41,7 @@ class GraphViewer(object):
         self.__tk_obj_ref = None  # need keep ref to prevent GC (garbage collection)
         self.__onscreen_help = False
         self.__onscreen_info = False
+        self.__pause_slideshow = False
         self.__fullscreen_mode = True
         if get_fullscreen_mode2():
             self.__root.overrideredirect(self.__fullscreen_mode)  # do this b4 ...'-fullscreen'
@@ -52,6 +53,7 @@ class GraphViewer(object):
         self.__root.bind("<Left>", self.show_previous_image)
         self.__root.bind("<h>", self.toggle_onscreen_help)
         self.__root.bind("<i>", self.toggle_onscreen_info)
+        self.__root.bind("<p>", self.toggle_pause_slideshow)
         self.__root.bind("<q>", user_quit)
         self.__root.bind("<equal>", self.increment_rank)
         self.__root.bind("<minus>", self.decrement_rank)
@@ -124,6 +126,10 @@ class GraphViewer(object):
     def toggle_onscreen_info(self, *unused):
         self.__onscreen_info = not self.__onscreen_info
         self.show_onscreen_info()
+
+    def toggle_pause_slideshow(self, *unused):
+        self.__pause_slideshow = not self.__pause_slideshow
+        self.show_onscreen_info()  # for the 'PAUSED' msg shown on onscreen_info
 
     # TODO:
     # for the following show_onscreen_XXX, it may not be a very good way to re-create canvas text?
@@ -214,7 +220,10 @@ class GraphViewer(object):
         resolved_sentence = self.get_resolved_sentence(chosen_sentence, pattern, chosen_phrase_obj)
         self.__phrase_var.set(resolved_sentence)
 
-    def timer_action(self):
+    def timer_action(self, user_next_image=False):
+        if not user_next_image and self.__pause_slideshow:
+            self.prepare_for_next_view(get_slideshow_frequency() * 1000)
+            return
         success = self.set_graph(self.select_pattern())
         if not success:
             self.prepare_for_next_view(1, get_msg(Msg.try_fetch_image_again))
@@ -343,7 +352,7 @@ class GraphViewer(object):
         self.setup_image_stuff(image_obj_list)
         self.setup_phrase_stuff(image_obj_list, phrase_obj_list)
         while True:
-            self.timer_action()
+            self.timer_action(True)
             self.__root.mainloop()
             self.cancel_pending_jobs()
 
@@ -352,8 +361,11 @@ class GraphViewer(object):
                                          text=GraphViewer.help_str(), fill="red", activefill=get_random_color())
 
     def info_text(self):
+        text = self.__cur_digest
+        if self.__pause_slideshow:
+            text += "\n[PAUSED]"
         return self.__canvas.create_text(0, 20, anchor=Tkinter.NW, font=("system", 15),
-                                         text=self.__cur_digest, fill="blue", activefill=get_random_color())
+                                         text=text, fill="blue", activefill=get_random_color())
 
     def phrase_text(self):
         # TODO: not a good way to have such fixed values
