@@ -35,6 +35,7 @@ which demonstrate the following:
 # Hot keys
 [Right]: next image  
 [Left]: previous image  
+[p]: pause slideshow  
 [Esc]: switch fullscreen/window mode  
 [i]: display image information  
 [q]: exit application
