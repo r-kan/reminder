@@ -209,7 +209,11 @@ class GraphViewer(object):
         for phrase_obj in self.__phrase_binding[pattern]:
             phrase_arbitrator.add_rank(phrase_obj.name, phrase_obj.rank)
         phrase_arbitrator.finalize_rank()
-        chosen_phrase_obj = self.__cur_phrase_obj_dict[phrase_arbitrator.arbitrate()]
+        arbitrated_phase = phrase_arbitrator.arbitrate()
+        if not arbitrated_phase:
+            self.__phrase_var.set("")
+            return
+        chosen_phrase_obj = self.__cur_phrase_obj_dict[arbitrated_phase]
         import os
         base_file_name = os.path.basename(self.__cur_graph_file)
         group_name = self.__cur_image_obj_dict[pattern].group_name
