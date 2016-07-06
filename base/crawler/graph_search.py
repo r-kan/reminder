@@ -3,6 +3,7 @@
 
 from __future__ import print_function, unicode_literals
 import json
+import os
 import requests
 from datetime import datetime, timedelta
 from util.global_def import NA, get_data_home, show, info, error, get_msg
@@ -35,8 +36,11 @@ class Crawler(object):
 
     def __del__(self):
         if self.__need_save and self.__has_write:
-            is_exist, url_map = load(self.__cache_file)
-            assert is_exist
+            if os.path.exists(self.__cache_file):
+                is_exist, url_map = load(self.__cache_file)
+                assert is_exist
+            else:
+                url_map = {}
             key, updated_value = self.__updated_key_value
             assert key and updated_value
             url_map[key] = updated_value
@@ -61,7 +65,7 @@ class Crawler(object):
         urls, size_ratio = self.get_recent_result(key)
         if urls:
             return urls, False
-        if not self.__network_reachable:
+        if not self.__network_reachable or Crawler.__STOP_SEARCH:
             return None, False
         assert size_list and (not size_ratio or isinstance(size_ratio, dict))
         dice = Crawler.get_dice(size_list, size_ratio)
