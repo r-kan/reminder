@@ -64,14 +64,21 @@ class RankArbitrator(object):
             total_holders[pattern] = RankHolder(rank.value)
         return total_holders
 
+    __HAS_SHOWN_PERCENTAGE_WARNING__ = False
+
     def arbitrate(self):
         """consider current date/time and value of the ranks, return the selected pattern"""
         timed_percentage_rank, timed_weight_rank = self.__get_current_timed_rank()
         timed_percentage_count = sum([timed_percentage_rank[pattern].value for pattern in timed_percentage_rank])
         total_percentage_count = self.__general_percentage_count + timed_percentage_count
-        assert total_percentage_count <= 100
+        max_percentage = 100
+        if total_percentage_count > max_percentage:
+            max_percentage = total_percentage_count
+            if not RankArbitrator.__HAS_SHOWN_PERCENTAGE_WARNING__:
+                print("[warning] total percentage count value '%s' is greater than 100" % total_percentage_count)
+                RankArbitrator.__HAS_SHOWN_PERCENTAGE_WARNING__ = True
         dice = {PERCENTAGE: RankHolder(total_percentage_count),
-                WEIGHT: RankHolder(100 - total_percentage_count)}
+                WEIGHT: RankHolder(max_percentage - total_percentage_count)}
         choice = get_weighted_random_dict_key(dice)
         general_holders = self.__general_percentage_holder if PERCENTAGE is choice else self.__general_weight_holder
         timed_ranks = timed_percentage_rank if PERCENTAGE is choice else timed_weight_rank
