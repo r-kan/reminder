@@ -3,30 +3,24 @@
 
 from __future__ import print_function, unicode_literals
 import sys
+from argparse import ArgumentParser
 from gui.graph_view.multi_viewer import MultiGraphViewer
 from util.global_def import get_msg
 from util.message import Msg
-
-DEFAULT_CONFIG_FILE = "config.ini"
 
 
 class Reminder(object):
 
     def __init__(self):
-        config_file = DEFAULT_CONFIG_FILE
-        if len(sys.argv) >= 2:
-            for argument in sys.argv[1:]:
-                if "-" == argument[0]:
-                    if argument in ["-h", "-help"]:
-                        self.__help()
-                        sys.exit()
-                    else:
-                        print("unrecognized option：", argument)
-                else:
-                    config_file = argument
+        arg_parser = ArgumentParser(description='reminder --- brings you a better reminder')
+        arg_parser.add_argument('config_file')
+        args = arg_parser.parse_args()
+        if not args.config_file:
+            args.print_help()
+            sys.exit()
         self.__image_setting = []
         self.__phrase_setting = []
-        self.__parse_config(config_file)
+        self.__parse_config(args.config_file)
 
     def __parse_config(self, config_file):
         from util.config import Config
@@ -43,15 +37,6 @@ class Reminder(object):
 
     def show(self):
         MultiGraphViewer(self.__image_setting, self.__phrase_setting).view()
-
-    @staticmethod
-    def __help():
-        help_msg = "reminder - usage\n" \
-                   "\tmain.py [config_file]\n" \
-                   "=============================\n" \
-                   "config_file: a file that gives various setting to reminder\n" \
-                   "             if not given, will search for \"%s\" at current directory" % DEFAULT_CONFIG_FILE
-        print(help_msg)
 
 
 if __name__ == '__main__':

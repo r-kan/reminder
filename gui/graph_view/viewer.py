@@ -390,7 +390,10 @@ class GraphViewer(object):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) >= 2:
-        from util.global_def import config_action
-        config_action()
-        GraphViewer().view([ImageObj(argv) for argv in sys.argv[1:]], None)
+    from argparse import ArgumentParser
+    arg_parser = ArgumentParser(description='reminder --- pure viewer')
+    arg_parser.add_argument('patterns', nargs='+')
+    args = arg_parser.parse_args()
+    from util.global_def import config_action
+    config_action()
+    GraphViewer().view([ImageObj(pattern) for pattern in args.patterns], None)
