@@ -91,7 +91,7 @@ class GraphViewer(object):
         self.__graph_history.remove([self.__cur_image_obj, self.__cur_graph_file])
         GraphFetcher.handle_image(self.__cur_graph_file, DELETE)
         self.cancel_pending_jobs()
-        self.timer_action()
+        self.timer_action(True)
 
     def show_previous_image(self, *unused):
         last_graph = self.__graph_history.pop()
