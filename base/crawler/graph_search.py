@@ -169,7 +169,8 @@ class Crawler(object):
             res = json.loads(r.text)
             if "error" in res:
                 Crawler.print_error(res["error"])
-                if "Daily Limit Exceeded" in res["error"]["message"]:
+                if "This API requires billing to be enabled on the project" in res["error"]["message"]:
+                    # this is the 'out of quota' message
                     Crawler.__STOP_SEARCH = True
                 return urls, False
             if 'items' not in res:

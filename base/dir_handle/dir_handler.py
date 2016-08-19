@@ -75,10 +75,14 @@ class GraphDirHandler(object):
         else:
             info("%s%s" % (get_msg(Msg.create_new_cache_file_for_directory), self.__location))
         image_files = []
-        for file_ext in GraphDirHandler.RECOGNIZED_IMAGE_EXT:
-            import glob
-            image_files += [image.replace(self.__location + get_delim(), "") for image in
-                            glob.glob(self.__location + get_delim() + "*." + file_ext)]
+        for root, _, files in os.walk(self.__location):
+            assert len(root) >= 1
+            if root[-1] != get_delim():
+                root += get_delim()
+            for base_file in files:
+                basename, ext = os.path.splitext(base_file)
+                if ext.replace(".", "") in GraphDirHandler.RECOGNIZED_IMAGE_EXT:
+                    image_files.append((root + base_file).replace(self.__location, ""))
         if not image_files:
             if cache_existed:
                 os.remove(cache_file)

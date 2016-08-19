@@ -6,6 +6,7 @@ import os
 from util.message import EN, Msg
 
 
+# TODO: use a const DIR_DELIM evaluate once, instead of evaluate each time
 def get_delim():
     import platform
     system_name = platform.system()
