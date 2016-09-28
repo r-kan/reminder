@@ -37,12 +37,12 @@ class Config(object):
             float(self.__config.get("image", "slideshow_frequency"))
         phrase_appear_ratio = get_phrase_appear_ratio() if not self.__config.has_option("phrase", "ratio") else \
             float(self.__config.get("phrase", "ratio"))
-        search_latency = get_search_latency() if not self.__config.has_option("image", "search_latency") else \
-            float(self.__config.get("image", "search_latency"))
         api_key = get_api_key() if not self.__config.has_option("search", "api_key") else \
             self.__config.get("search", "api_key")
         cx = get_cx() if not self.__config.has_option("search", "cx") else \
             self.__config.get("search", "cx")
+        search_latency = get_search_latency() if not self.__config.has_option("search", "search_latency") else \
+            float(self.__config.get("search", "search_latency"))
         fullscreen_mode2 = get_fullscreen_mode2() if not self.__config.has_option("reminder", "fullscreen_mode2") else \
             "True" == self.__config.get("reminder", "fullscreen_mode2")
         verbose = get_verbose() if not self.__config.has_option("reminder", "verbose") else \
