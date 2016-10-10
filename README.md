@@ -8,6 +8,8 @@ Reminder, beyond an image slideshow tool, has the following unique features:
 
 P.S: for search function, `api_key` and `cx` of **google custom search** is required 
 
+Note: This repository is obsolete, future development will be in <a href='https://github.com/r-kan/iReminder'>iReminder</a>.  
+
 # System Requirement
 python2.7
 
