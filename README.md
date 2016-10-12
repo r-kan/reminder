@@ -1,14 +1,14 @@
 # Reminder
 _~better reminder, more customizable slideshow tool~_
 
+Note: This repository is obsolete, future development will be in <a href='https://github.com/r-kan/iReminder'>iReminder</a>.  
+  
 Reminder, beyond an image slideshow tool, has the following unique features:  
 1. can customize how the image is shown  
 2. automatically search and download images  
 3. can embed the image with customized phrases
 
 P.S: for search function, `api_key` and `cx` of **google custom search** is required 
-
-Note: This repository is obsolete, future development will be in <a href='https://github.com/r-kan/iReminder'>iReminder</a>.  
 
 # System Requirement
 python2.7
